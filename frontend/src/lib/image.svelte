@@ -30,15 +30,14 @@
 
   function entersViewport(e) {
     img = e;
-
     if (loaded && isInViewport(img)) {
       blurred = false;
     }
-
     observer = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && loaded) {
         blurred = false;
-        observer.disconnect();
+      } else {
+        blurred = true;
       }
     }, observerOptions);
 
