@@ -23,7 +23,7 @@ const getTime = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minu
 $effect(() => {
   setTimeout(() => {
     isLoaded = true
-  }, 700);
+  }, 0);
 
   const updateTimes = () => {
     for (const city in cities) {
@@ -163,6 +163,7 @@ main {
   justify-content: space-between;
   filter: blur(100px);
   transition: var(--transition);
+  transition-property: filter;
 }
 .times.loaded {
   filter: blur(0px);

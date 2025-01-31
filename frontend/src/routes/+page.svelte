@@ -1,6 +1,6 @@
 <script>
 let innerWidth = $state()
-
+import Image from "$lib/Image.svelte";
 import { getPosition } from "$lib/mouse.svelte.js";
 let mouse = getPosition()
 
@@ -13,7 +13,8 @@ function handleMouseMove(e) {
 
 <section class="left">
   <div class="vertical hero">
-    <img src="/img/1.webp" alt="" sizes="" srcset="">
+    <Image lowRes="/img/1-lowres.webp" highRes="/img/1.webp" cover={true} alt="A beautiful landscape"/>
+    <!-- <img src="/img/1.webp" alt="" sizes="" srcset=""> -->
     <ul class="credits europa-22">
       <li>Photographer<br><a class="europa-28 uppercase" href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></li>
       <li>Casting<br><a class="europa-28 uppercase" href="https://www.instagram.com/emmamatell" target="_blank" rel="noopener noreferrer">Emma Matell</a></li>
@@ -24,19 +25,19 @@ function handleMouseMove(e) {
   </div>
   
   <div class="quote-img europa-66">
-    <img src="/img/3.webp" alt="" sizes="" srcset="">
+    <Image lowRes="/img/3-lowres.webp" highRes="/img/3.webp" alt="A beautiful landscape"/>
     <p>‘Technophoria is an ode to these moments of transcendence, where the colletive energy or a crowd becomes something greater than the sum of its parts.’</p>
   </div>
 
   <div class="auto">
-    <img src="/img/4.webp" alt="" sizes="" srcset="">
+    <Image lowRes="/img/4-lowres.webp" highRes="/img/4.webp" alt="A beautiful landscape"/>
   </div>
   <div class="quote europa-43">
     <p>‘This book is my contribution to the legacy of the rave, a chronicle of the nights that shaped me and countless others around.’</p>
     <p class="author times-27">( Felicity Ingram )</p>
   </div>
   <div class="vertical">
-    <img src="/img/1.webp" alt="" sizes="" srcset="">
+    <Image lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
   </div>
   <div class="people">Left</div>
   <div class="launch">Left</div>
@@ -45,9 +46,9 @@ function handleMouseMove(e) {
 
 <section class="right">
   <!-- <video class="video" src=""></video> -->
-  <img class="video" class:hidden={mouse.position.x > innerWidth/2} src="/img/2.webp" alt="" sizes="" srcset="">
+  <Image lowRes="/img/2-lowres.webp" highRes="/img/2.webp" cover={true} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
   <div class="book">
-    <img class="cover" src="/img/cover.webp" alt="" sizes="" srcset="">
+    <Image lowRes="/img/cover-lowres.webp" highRes="/img/cover.webp" bookCover={true} alt="A beautiful landscape"/>
     <button class="btn border-white">Add to cart</button>
   </div>
 </section>
@@ -61,6 +62,9 @@ section {
 /* Left */
 section.left {
   grid-column: 1 / span 6;
+}
+section.left > * {
+  overflow: hidden;
 }
 img {
   width: 100%;
@@ -128,14 +132,7 @@ section.right {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.video.hidden {
-  display: none;
+  overflow: hidden;
 }
 .book {
   position: absolute;
@@ -148,11 +145,6 @@ section.right {
   align-items: center;
   justify-content: center;
   gap: calc(var(--gutter)*3);
-  z-index: -1;
-}
-.cover {
-  width: 60%;
-  height: 50%;
-  object-fit: contain;
+  z-index: -2;
 }
 </style>
