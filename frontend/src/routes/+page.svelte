@@ -1,6 +1,6 @@
 <script>
 let innerWidth = $state()
-import Image from "$lib/Image.svelte";
+import Image from "$lib/image.svelte";
 import { getPosition } from "$lib/mouse.svelte.js";
 let mouse = getPosition()
 
