@@ -42,7 +42,8 @@
 }
 :root{
   --gutter: 1rem;
-  --transition: cubic-bezier(.77,0,.175,1) 300ms;
+  --transition: cubic-bezier(.77,0,.175,1) 500ms;
+  --filter: blur(100px) contrast(10);
   --black: rgba(0, 0, 0, 1);
   --white: rgba(255, 255, 255, 1);
   --gray: rgba(100, 100, 100, 1);
@@ -218,7 +219,12 @@ a.btn:hover,
   display: unset;
 }
 .hidden {
-  display: none !important;
+  pointer-events: none;
+  opacity: 0;
+  filter: var(--filter);
+}
+.transition {
+  transition: var(--transition);
 }
 
 @media screen and (max-width: 900px) {

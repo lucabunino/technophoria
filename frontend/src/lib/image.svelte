@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   const {
     lowRes = null,
     highRes = null,
@@ -10,45 +10,56 @@
 
   import { onMount } from 'svelte';
 
-  let imgSrc = $state(lowRes);  // Initially show low-res image
-  let blurred = $state(true);  // Apply blur by default
-  let loaded = $state(false);  // Track if the high-res image is loaded
-  let root;  // Reference to the image element
+  let imgSrc = $state(lowRes);
+  let blurred = $state(true);
+  let loaded = $state(false);
+  let observer;
+  let img;
 
-  // Immediately load the high-res image
-  onMount(() => {
-    const highResImg = new Image();
-    highResImg.src = highRes;  // Set high-res image source
-    highResImg.onload = () => {
-      imgSrc = highRes;  // Update src once the image is loaded
-      loaded = true;  // Set loaded to true
-    };
-  });
+  const observerOptions = {
+    root: null,
+    rootMargin: "-100px",
+    threshold: 0.1,
+  };
 
-  // IntersectionObserver to detect when image comes into the viewport
+  function isInViewport(el) {
+    if (!el) return false;
+    const rect = el.getBoundingClientRect();
+    return rect.top <= window.innerHeight - 200 && rect.bottom >= 100;
+  }
+
+  function entersViewport(e) {
+    img = e;
+
+    if (loaded && isInViewport(img)) {
+      blurred = false;
+    }
+
+    observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && loaded) {
+        blurred = false;
+        observer.disconnect();
+      }
+    }, observerOptions);
+
+    observer.observe(img);
+  }
+
   $effect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        // Check if image top is within viewport minus 200px
-        if (loaded) {
-          blurred = false;  // Remove blur when image top is within the desired range and loaded
-          console.log(root);
-          
-          observer.disconnect();  // Stop observing once image is unblurred
-        }
-      });
-    });
-
-    if (root) observer.observe(root);  // Observe the image element
-
-    return () => {
-      observer.disconnect();  // Cleanup on component destruction
+    const highResImg = new Image();
+    highResImg.src = highRes;
+    highResImg.onload = () => {
+      imgSrc = highRes;
+      loaded = true;
+      if (isInViewport(img)) blurred = false;
     };
+
+    return () => observer?.disconnect();
   });
 </script>
 
 <img
-  bind:this={root}
+  use:entersViewport
   class="image"
   class:cover={cover}
   class:bookCover={bookCover}
@@ -79,7 +90,6 @@
   }
 
   .blurred {
-    filter: blur(20px);  /* Apply blur by default */
-    transition: filter 0.5s ease;  /* Smooth transition to unblur */
+    filter: var(--filter);
   }
 </style>

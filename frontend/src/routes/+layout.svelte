@@ -21,9 +21,7 @@ const getTime = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minu
 
 // Lifecycle
 $effect(() => {
-  setTimeout(() => {
-    isLoaded = true
-  }, 0);
+  isLoaded = true
 
   const updateTimes = () => {
     for (const city in cities) {
@@ -83,7 +81,7 @@ function toggleCredits() {
   <nav>
     <ul class="menu uppercase europa-24">
       {#if $page.url.pathname !== "/"}<li class="menu-item"><a href="/">Home</a></li>{/if}
-      <li class="menu-item" class:white={mouse.position.x > innerWidth/2}><button>Cart (0)</button></li>
+      <li class="menu-item" class:white={mouse.position.x > innerWidth/2}><button class="transition">Cart (0)</button></li>
     </ul>
   </nav>
 </header>

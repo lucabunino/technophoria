@@ -48,7 +48,7 @@ function handleMouseMove(e) {
   <!-- <video class="video" src=""></video> -->
   <Image lowRes="/img/2-lowres.webp" highRes="/img/2.webp" cover={true} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
   <div class="book">
-    <Image lowRes="/img/cover-lowres.webp" highRes="/img/cover.webp" bookCover={true} alt="A beautiful landscape"/>
+    <Image lowRes="/img/cover-lowres.webp" highRes="/img/cover.webp" bookCover={true} hidden={mouse.position.x < innerWidth/2} alt="A beautiful landscape"/>
     <button class="btn border-white">Add to cart</button>
   </div>
 </section>
