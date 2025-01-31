@@ -12,25 +12,13 @@ let mouse = getPosition()
 // Variables
 let innerWidth = $state()
 let activeMenu = $state(true)
-let isLoaded = $state(false);
-const cities = { berlin: 'Europe/Berlin', lisbon: 'Europe/Lisbon', london: 'Europe/London', marseille: 'Europe/Paris', seoul: 'Asia/Seoul', tokyo: 'Asia/Tokyo' };
-let times = $state(Object.fromEntries(Object.keys(cities).map(city => [city, ''])));
-
-// Function to get formatted time
-const getTime = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: tz }).format(new Date());
+let domLoaded = $state(false);
 
 // Lifecycle
 $effect(() => {
-  isLoaded = true
-
-  const updateTimes = () => {
-    for (const city in cities) {
-      times[city] = getTime(cities[city]);
-    }
-  };
-  updateTimes();
-  const interval = setInterval(updateTimes, 1000);
-  return () => clearInterval(interval);
+  setTimeout(() => {
+    domLoaded = true
+  }, 200);
 })
 
 // Grid (not needed in production)
@@ -99,6 +87,7 @@ function marquee(node, speed) {
 </div>
 {/if}
 
+{#if domLoaded}
 <header>
   <nav>
     <ul class="menu uppercase europa-24">
@@ -108,12 +97,12 @@ function marquee(node, speed) {
   </nav>
 </header>
 
-<main class:loaded={isLoaded}>
+<main class:loaded={domLoaded}>
   {@render children()}
 </main>
 
 {#if $page.url.pathname === "/"}
-<div class="marquee europa-45" use:marquee={2}>
+<div class="marquee europa-45" use:marquee={1}>
   <p>OOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France //{@html ' B'}</p>
   <p>OOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France //{@html ' B'}</p>
 </div>
@@ -127,6 +116,7 @@ function marquee(node, speed) {
     <li><a class:active={$page.url.pathname == '/technophoria'} href="/technophoria">Technophoria</a></li>
   </ul>
 </footer>
+{/if}
   
   
   

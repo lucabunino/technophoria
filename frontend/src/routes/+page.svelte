@@ -1,7 +1,7 @@
 <script>
 let innerWidth = $state()
 let personHover = $state(false)
-let isLoaded = $state(false);
+let domLoaded = $state(false);
 
 import Image from "$lib/image.svelte";
 import { getPosition } from "$lib/mouse.svelte.js";
@@ -14,8 +14,7 @@ const getTime = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minu
 
 // Lifecycle
 $effect(() => {
-  isLoaded = true
-
+  domLoaded = true
   const updateTimes = () => {
     for (const city in cities) {
       times[city] = getTime(cities[city]);
@@ -52,7 +51,7 @@ function handleMouseMove(e) {
 <svelte:window bind:innerWidth onmousemove={(e) => handleMouseMove(e)}></svelte:window>
 <section class="left">
   <div class="times-container">
-    <div class="times uppercase eurostile-14" class:loaded={isLoaded && !personHover}>
+    <div class="times uppercase eurostile-14" class:loaded={domLoaded && !personHover}>
       <div>
         <p>London {times.london}</p>
         <p>Berlin {times.berlin}</p>
@@ -73,7 +72,7 @@ function handleMouseMove(e) {
       <li>Creative Direction<br><a class="europa-28 uppercase" href="https://www.sarah-bassett.com/" target="_blank" rel="noopener noreferrer">Sarah Bassett</a></li>
     </ul>
     <h2 class="uppercase europa-66">Technophoria<br>By Felicity Ingram<br><span class="lowercase">6th</span> March 2025</h2>
-    <a class="btn" class:hidden={!isLoaded} href="/technophoria">Preorder now</a>
+    <a class="btn" class:hidden={!domLoaded} href="/technophoria">Preorder now</a>
   </div>
   
   <div class="block quote-img europa-66">
@@ -132,7 +131,7 @@ function handleMouseMove(e) {
   <Image lowRes="/img/2-lowres.webp" highRes="/img/2.webp" cover={true} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
   <div class="book">
     <Image lowRes="/img/cover-lowres.webp" highRes="/img/cover.webp" bookCover={true} blur={3} hidden={mouse.position.x < innerWidth/2} alt="A beautiful landscape"/>
-    <button class:hidden={!isLoaded} class="btn border-white">Add to cart</button>
+    <button class:hidden={!domLoaded} class="btn border-white">Add to cart</button>
   </div>
 </section>
 
@@ -173,8 +172,9 @@ section.right,
   position: relative;
 }
 .vertical {
-  height: 100vh;
-  height: 100svh;
+  height: calc(100vh - 1.2*2.5rem);
+  height: calc(100svh - 1.2*2.5rem);
+  min-height: 700px;
   position: relative;
 }
 .vertical.hero {

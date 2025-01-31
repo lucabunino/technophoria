@@ -54,8 +54,8 @@ html {
   -webkit-font-smoothing: antialiased;
   color: var(--white);
   background-color: var(--black);
-  font-size: clamp(13px, calc(10px + 0.5291005291vw), 18px);
-  font-size: clamp(13px, 18px, 18px);
+  font-size: clamp(13px, calc(3px + 1vw), 18px);
+  /* font-size: clamp(13px, 18px, 18px); */
   line-height: 1.1;
   letter-spacing: .02em;
 }
