@@ -1,0 +1,228 @@
+/* Font import */
+@font-face {
+  font-family: Europa;
+  src:  url('/fonts/EuropaGroteskSH-Reg.woff') format('woff');
+  src:  url('/fonts/EuropaGroteskSH-Reg.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display:swap;
+}
+@font-face {
+  font-family: Europa;
+  src:  url('/fonts/EuropaGroteskSH-Med.woff') format('woff');
+  src:  url('/fonts/EuropaGroteskSH-Med.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display:swap;
+}
+@font-face {
+  font-family: Eurostile;
+  src:  url('/fonts/EurostileLTStd-Ex2.woff') format('woff');
+  src:  url('/fonts/EurostileLTStd-Ex2.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display:swap;
+}
+@font-face {
+  font-family: TimesTen;
+  src:  url('/fonts/TimesTenLTStd-Italic.woff') format('woff');
+  src:  url('/fonts/TimesTenLTStd-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display:swap;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+* {
+  margin: 0;
+}
+:root{
+  --gutter: 1rem;
+  --transition: cubic-bezier(.77,0,.175,1) 300ms;
+  --black: rgba(0, 0, 0, 1);
+  --white: rgba(255, 255, 255, 1);
+  --gray: rgba(100, 100, 100, 1);
+}
+html {
+  font-family: Europa, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  color: var(--white);
+  background-color: var(--black);
+  font-size: clamp(13px, calc(10px + 0.5291005291vw), 18px);
+  font-size: clamp(13px, 18px, 18px);
+  line-height: 1.1;
+  letter-spacing: .02em;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  white-space: pre-line;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+#root, #__next {
+  isolation: isolate;
+}
+a:-webkit-any-link {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+a:any-link {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+a {
+  display: inline-block;
+  width: auto;
+  position: relative;
+}
+a:not(.no-hover):hover,
+a.active {
+  color: var(--gray);
+}
+button {
+  cursor: pointer;
+  border: none;
+  /* outline: none; */
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+
+  /* Normalize line-height. Cannot be changed from normal in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable input types in iOS */
+  -webkit-appearance: none;
+}
+/* button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+button:focus {
+  outline: none;
+}
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+button:focus:not(:-moz-focusring) {
+  outline: none;
+} */
+
+a.btn,
+.btn {
+  color: var(--white);
+  background-color: var(--black);
+  border-radius: 999em;
+  padding: .7rem 1.2rem;
+  text-align: left;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 1.333rem;
+  border: solid 3px var(--black);
+}
+.btn.border-white {
+  border: solid 3px var(--white);
+}
+a.btn:hover,
+.btn:hover,
+.btn.active {
+  color: var(--black);
+  background-color: var(--white);
+  border: solid 3px var(--white);
+}
+
+
+.europa-66 {
+  font-size: 3.666rem;
+  letter-spacing: 0em;
+  line-height: .696;
+}
+.europa-45 {
+  font-size:2.5rem;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1;
+}
+.europa-43 {
+  font-size: 2.388rem;
+  letter-spacing: 0em;
+  line-height: .837;
+}
+.europa-28 {
+  font-size: 1.555rem;
+  letter-spacing: 0em;
+  line-height: .75;
+}
+.europa-24 {
+  font-size: 1.333rem;
+  letter-spacing: .01em;
+  line-height: .954;
+}
+.europa-22 {
+  font-size: 1.222rem;
+  letter-spacing: .01em;
+  line-height: .954;
+}
+.europa-18 {
+  font-size: 1rem;
+  letter-spacing: .02em;
+}
+.europa-10 {
+  font-size: .555rem;
+  letter-spacing: .03em;
+}
+.eurostile-14 {
+  font-family: Eurostile, 'Courier New', Courier, monospace;
+  font-size: .777rem;
+  line-height: 1;
+}
+.times-27 {
+  font-family: TimesTen, 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  line-height: 1.333;
+}
+.uppercase {text-transform: uppercase;}
+.lowercase {text-transform: lowercase;}
+.mobile-only {
+  display: none !important;
+}
+.desktop-only {
+  display: unset;
+}
+
+@media screen and (max-width: 900px) {
+  .mobile-only {
+    display: unset;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+}
