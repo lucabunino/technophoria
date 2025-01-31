@@ -42,8 +42,7 @@
 }
 :root{
   --gutter: 1rem;
-  --transition: cubic-bezier(.77,0,.175,1) 500ms;
-  --filter: blur(100px) contrast(10);
+  --transition: cubic-bezier(.77,0,.175,1) 400ms;
   --black: rgba(0, 0, 0, 1);
   --white: rgba(255, 255, 255, 1);
   --gray: rgba(100, 100, 100, 1);
@@ -177,10 +176,15 @@ a.btn:hover,
   letter-spacing: 0em;
   line-height: .837;
 }
-.europa-28 {
-  font-size: 1.555rem;
+.europa-36 {
+  font-size: 2.388rem;
   letter-spacing: 0em;
-  line-height: .75;
+  line-height: .837;
+}
+.europa-28 {
+  font-size: 2rem;
+  letter-spacing: 0em;
+  line-height: .837;
 }
 .europa-24 {
   font-size: 1.333rem;
@@ -221,7 +225,7 @@ a.btn:hover,
 .hidden {
   pointer-events: none;
   opacity: 0;
-  filter: var(--filter);
+  filter: blur(7vw) contrast(5);
 }
 .transition {
   transition: var(--transition);

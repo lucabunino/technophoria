@@ -6,6 +6,8 @@
     cover = false,
     bookCover = false,
     hidden = false,
+    delay = 0,
+    blur = 7,
   } = $props();
 
   import { onMount } from 'svelte';
@@ -36,9 +38,12 @@
     observer = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && loaded) {
         blurred = false;
-      } else {
-        blurred = true;
       }
+      // if (entries[0].isIntersecting && loaded) {
+      //   blurred = false;
+      // } else {
+      //   blurred = true;
+      // }
     }, observerOptions);
 
     observer.observe(img);
@@ -66,6 +71,7 @@
   class:hidden={hidden}
   src={imgSrc}
   alt={alt}
+  style="--delay:{delay}ms; --blur:{blur}vw;"
 />
 
 <style>
@@ -79,6 +85,8 @@
 
   .image.cover {
     position: absolute;
+    left: 0;
+    top: 0;
     z-index: -1;
   }
 
@@ -89,6 +97,6 @@
   }
 
   .blurred {
-    filter: var(--filter);
+    filter: blur(var(--blur)) contrast(5);
   }
 </style>

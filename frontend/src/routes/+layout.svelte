@@ -51,6 +51,28 @@ function toggleCredits() {
     });
   }, 200);
 }
+
+function marquee(node, speed) {
+  let scrollAmount = 0;
+  let frame;
+
+  function step() {
+    scrollAmount -= speed; // Adjust speed here
+    if (scrollAmount <= -node.firstElementChild.offsetWidth) {
+      scrollAmount = 0; // Reset when fully scrolled
+    }
+    node.style.transform = `translateX(${scrollAmount}px)`;
+    frame = requestAnimationFrame(step);
+  }
+
+  step();
+
+  return {
+    destroy() {
+      cancelAnimationFrame(frame);
+    }
+  };
+}
 </script>
   
 <svelte:head>
@@ -91,20 +113,9 @@ function toggleCredits() {
 </main>
 
 {#if $page.url.pathname === "/"}
-<div class="times uppercase eurostile-14" class:loaded={isLoaded}>
-  <div>
-    <p>London {times.london}</p>
-    <p>Berlin {times.berlin}</p>
-    <p>Seoul {times.seoul}</p>
-  </div>
-  <div>
-    <p>Lisbon {times.lisbon}</p>
-    <p>Tokyo {times.tokyo}</p>
-    <p>Marseille {times.marseille}</p>
-  </div>
-</div>
-<div class="marquee europa-45">
-  <p>BOOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France // </p>
+<div class="marquee europa-45" use:marquee={2}>
+  <p>OOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France //{@html ' B'}</p>
+  <p>OOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France //{@html ' B'}</p>
 </div>
 {/if}
 
@@ -151,28 +162,6 @@ main {
   width: 100%;
 }
 
-/* Times */
-.times {
-  position: fixed;
-  top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*2);
-  top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*2);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  filter: blur(100px);
-  transition: var(--transition);
-  transition-property: filter;
-}
-.times.loaded {
-  filter: blur(0px);
-}
-.times div {
-  width: 50%;
-  padding: var(--gutter);
-  display: flex;
-  justify-content: space-between;
-}
-
 /* Marquee */
 .marquee {
   position: fixed;
@@ -181,9 +170,14 @@ main {
   background-color: var(--black);
   padding: .1em 0;
   overflow: hidden;
+  z-index: 4;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
 }
 .marquee p {
   width: max-content;
+  display: inline-block;
 }
 
 /* Footer */
@@ -192,6 +186,10 @@ footer {
   height: 50svh;
   background-color: var(--white);
   color: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 footer ul {
   list-style: none;
