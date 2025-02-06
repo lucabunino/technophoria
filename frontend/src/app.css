@@ -73,6 +73,7 @@ img, picture, video, canvas, svg {
 }
 input, button, textarea, select {
   font: inherit;
+  line-height: inherit;
 }
 #root, #__next {
   isolation: isolate;

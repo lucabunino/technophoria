@@ -3,10 +3,16 @@ let innerWidth = $state()
 let personHover = $state(false)
 let domLoaded = $state(false);
 
-import Image from "$lib/image.svelte";
-import { getPosition } from "$lib/mouse.svelte.js";
-let mouse = getPosition()
 
+import Media from "$lib/components/Media.svelte";
+import QuickBuyDialog from "$lib/components/QuickBuyDialog.svelte";
+import ProductCard from "$lib/components/ProductCard.svelte";
+
+let mouse = getPosition()
+import { getPosition } from "$lib/utils/mouse.svelte.js";
+
+const { data, children } = $props()
+$inspect(data)
 
 const cities = { berlin: 'Europe/Berlin', lisbon: 'Europe/Lisbon', london: 'Europe/London', marseille: 'Europe/Paris', seoul: 'Asia/Seoul', tokyo: 'Asia/Tokyo' };
 let times = $state(Object.fromEntries(Object.keys(cities).map(city => [city, ''])));
@@ -46,9 +52,32 @@ let people = [
 function handleMouseMove(e) {
   mouse.position.x = e.clientX;
 }
+// Marquee
+function marquee(node, speed) {
+  let scrollAmount = 0;
+  let frame;
+
+  function step() {
+    scrollAmount -= speed; // Adjust speed here
+    if (scrollAmount <= -node.firstElementChild.offsetWidth) {
+      scrollAmount = 0; // Reset when fully scrolled
+    }
+    node.style.transform = `translateX(${scrollAmount}px)`;
+    frame = requestAnimationFrame(step);
+  }
+
+  step();
+
+  return {
+    destroy() {
+      cancelAnimationFrame(frame);
+    }
+  };
+}
 </script>
 
 <svelte:window bind:innerWidth onmousemove={(e) => handleMouseMove(e)}></svelte:window>
+
 <section class="left">
   <div class="times-container">
     <div class="times uppercase eurostile-14" class:loaded={domLoaded && !personHover}>
@@ -64,43 +93,88 @@ function handleMouseMove(e) {
       </div>
     </div>
   </div>
+
+  <div class="marquee europa-45">
+    <div use:marquee={1}>
+      <p>BOOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France // </p>
+      <p>BOOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France // </p>
+    </div>
+  </div>
+
   <div class="block vertical hero">
-    <Image lowRes="/img/1-lowres.webp" highRes="/img/1.webp" cover={true} alt="A beautiful landscape"/>
-    <ul class="credits europa-22">
+    <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" cover={true} alt="A beautiful landscape"/>
+    <ul class="top-credits europa-22">
       <li>Photographer<br><a class="europa-28 uppercase" href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></li>
       <li>Casting<br><a class="europa-28 uppercase" href="https://www.instagram.com/emmamatell" target="_blank" rel="noopener noreferrer">Emma Matell</a></li>
       <li>Creative Direction<br><a class="europa-28 uppercase" href="https://www.sarah-bassett.com/" target="_blank" rel="noopener noreferrer">Sarah Bassett</a></li>
     </ul>
     <h2 class="uppercase europa-66">Technophoria<br>By Felicity Ingram<br><span class="lowercase">6th</span> March 2025</h2>
-    <a class="btn" class:hidden={!domLoaded} href="/technophoria">Preorder now</a>
+    <a class="btn hero" class:hidden={!domLoaded} href="/products/{data.product.handle}">Preorder now</a>
   </div>
   
   <div class="block quote-img europa-66">
-    <Image lowRes="/img/3-lowres.webp" highRes="/img/3.webp" alt="A beautiful landscape"/>
+    <Media lowRes="/img/3-lowres.webp" highRes="/img/3.webp" cover={true} alt="A beautiful landscape"/>
     <p>‘Technophoria is an ode to these moments of transcendence, where the colletive energy or a crowd becomes something greater than the sum of its parts.’</p>
   </div>
 
-  <div class="block auto">
-    <Image lowRes="/img/4-lowres.webp" highRes="/img/4.webp" alt="A beautiful landscape"/>
+  <div class="block auto horizontal-small">
+    <Media lowRes="/img/3-lowres.webp" highRes="/img/3.webp" cover={true} alt="A beautiful landscape"/>
   </div>
+
+  <div class="block auto horizontal-big">
+    <Media lowRes="/img/2-lowres.webp" video="/video/footage-1.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
+  </div>
+  
+  <div class="block auto double">
+    <div>
+      <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+  <div class="block auto double">
+    <div>
+      <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+
   <div class="block quote europa-43">
-    <p>‘This book is my contribution to the legacy of the rave, a chronicle of the nights that shaped me and countless others around.’</p>
-    <p class="author times-27 left">( Felicity Ingram )</p>
+    <p>‘I want to express to the world with my unique make up and musicality, and I hope many people can feel it. Inspiration is my past and also my life experience. I wanted to express the painful and sad things without forgetting them.’</p>
+    <p class="author times-27 left">( Unknown, Tokyo )</p>
   </div>
+
   <div class="block vertical">
-    <Image lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
+    <Media lowRes="/img/2-lowres.webp" video="/video/motion-2.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
   </div>
-  <div class="block people">
+
+  <div class="block auto horizontal-big">
+    <Media lowRes="/img/2-lowres.webp" video="/video/footage-2.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block vertical">
+    <Media lowRes="/img/2-lowres.webp" video="/video/motion-1.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block auto horizontal-small quote-img bottom europa-66">
+    <Media lowRes="/img/2-lowres.webp" video="/video/footage-3.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
+    <p><span>‘An ode to the power </span> <span>of music and the spaces</span> <span>it creates.’</span></p>
+  </div>
+
+  <!-- <div class="block people">
     <div class="grid">
       {#each people as person, i}
         <div class="person" onmouseenter={(e) => {personHover = i+1}} onmouseleave={(e) => {personHover = false}}>
           <div>
-            <Image lowRes="/img/people/{i+1}-lowres.webp" highRes="/img/people/{i+1}-thumb.webp" hidden={personHover &&personHover !== i+1} blur={1} delay={i*50} alt="A beautiful landscape"/>
+            <Media lowRes="/img/people/{i+1}-lowres.webp" highRes="/img/people/{i+1}-thumb.webp" hidden={personHover &&personHover !== i+1} blur={1} delay={i*50} alt="A beautiful landscape"/>
           </div>
         </div>
       {/each}
       {#each people as person, i}
-        <Image lowRes="/img/people/{i+1}-lowres.webp" highRes="/img/people/{i+1}.webp" hidden={personHover !== i+1} blur={1} cover={true} alt="A beautiful landscape"/>
+        <Media lowRes="/img/people/{i+1}-lowres.webp" highRes="/img/people/{i+1}.webp" hidden={personHover !== i+1} blur={1} cover={true} alt="A beautiful landscape"/>
         <div class="person-bg"></div>
         <div class="person-info uppercase" class:hidden={personHover !== i+1}>
           <p>{person.name}</p>
@@ -110,38 +184,64 @@ function handleMouseMove(e) {
         </div>
       {/each}
     </div>
-  </div>
+  </div> -->
+
   <div class="block quote europa-43">
-    <p>‘It’s the only thing that has allowed me to express who I really am and to find a  place to heal.’</p>
-    <p class="author times-27 right">( Selva, Marseille )</p>
+    <p>‘That’s what i like about it, being free. I think it’s the most important thing to me. I like going alone, meeting people or not. It makes me feel better.’</p>
+    <p class="author times-27 right">( Val, Marseille )</p>
   </div>
+
   <div class="block launch">
-    <Image lowRes="/img/3-lowres.webp" highRes="/img/3.webp" cover={true} alt="A beautiful landscape"/>
+    <Media lowRes="/img/3-lowres.webp" highRes="/img/3.webp" cover={true} alt="A beautiful landscape"/>
     <div class="launch-info europa-28">
       <p class="europa-36 uppercase">Paris Launch Party</p>
       <p>6th March 2025</p>
       <p>Oddity Paris • 27 rue Notre Dame de Nazareth, Paris 45003, France • contact@oddityparis.fr • +33 (0)1 88 61 02 67 • <a href="https://www.instagram.com/oddityparis" target="_blank" rel="noopener noreferrer">@oddityparis</a></p>
     </div>
   </div>
+
+  <div class="block credits europa-43">
+    <p>Photographer <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></p>
+    <p>Casting Director <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Emma Mattell</a></p>
+    <p>Creative Director <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Sarah Bassett</a></p>
+    <p>Studio Manager <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Zac Dinnage</a></p>
+    <p>Video <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">David Jenewein</a></p>
+    <p>Casting Assistant <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Oliwia Jancerowicz</a></p>
+    <p>Local Production (Seoul) <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Mi Kim</a></p>
+    <p>Local Production (Tokyo) <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Ako Suzuki</a></p>
+    <p>Digital Art Director <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Virgilia Ramella</a></p>
+    <p>Web Design <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">LIVER</a></p>
+    <p>Web Development <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Luca Bunino</a></p>
+  </div>
 </section>
 
 
 <section class="right">
-  <!-- <video class="video" src=""></video> -->
-  <Image lowRes="/img/2-lowres.webp" highRes="/img/2.webp" cover={true} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
+  <!-- <Media lowRes="/img/2-lowres.webp" highRes="/img/2.webp" cover={true} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/> -->
+  <Media lowRes="/img/2-lowres.webp" highRes="/img/cover.webp" cover={true} video="/video/book-1.mp4" blur={3} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
   <div class="book">
-    <Image lowRes="/img/cover-lowres.webp" highRes="/img/cover.webp" bookCover={true} blur={3} hidden={mouse.position.x < innerWidth/2} alt="A beautiful landscape"/>
-    <button class:hidden={!domLoaded} class="btn border-white">Add to cart</button>
+    <ProductCard product={data.product}/>
   </div>
 </section>
 
 <style>
+/* Common */
+:global(.btn.hero) {
+  position: absolute;
+  top: 80vh;
+}
+span {
+  display: inline-block;
+}
+
 /* Times */
 .times-container {
   position: sticky;
   top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*2);
   top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*2);
   z-index: 3;
+  margin-bottom: calc(1.2*2.5rem);
+  mix-blend-mode: difference;
 }
 .times {
   width: 100vw;
@@ -161,13 +261,35 @@ function handleMouseMove(e) {
   justify-content: space-between;
 }
 
+/* Marquee */
+.marquee {
+  position: sticky;
+  top: calc(100vh - 1.2*2.5rem);
+  top: calc(100svh - 1.2*2.5rem);
+  background-color: var(--black);
+  padding: .1em 0;
+  overflow: hidden;
+  z-index: 4;
+  white-space: nowrap;
+  display: flex;
+  width: 100vw;
+}
+.marquee div {
+  width: max-content;
+}
+.marquee p {
+  width: max-content;
+  display: inline-block;
+}
+
 /* Left */
 section.left {
   grid-column: 1 / span 6;
 }
 section.left > .block,
 section.right,
-.people .grid {
+.people .grid,
+.double > div {
   overflow: hidden;
   position: relative;
 }
@@ -184,9 +306,9 @@ section.right,
   align-items: center;
   color: var(--black);
   gap: calc(var(--gutter)*3);
-  margin-top: calc((-.777rem - var(--gutter)*2));
+  margin-top: calc((-.777rem - var(--gutter)*2) - 1.2*5rem);
 }
-.vertical.hero .credits {
+.vertical.hero .top-credits {
   display: flex;
   width: 100%;
   padding: calc(var(--gutter)/2) var(--gutter);
@@ -195,9 +317,19 @@ section.right,
   list-style: none;
   top: 0;
   position: absolute;
+  text-align: center;
 }
 .vertical.hero h2 {
   text-align: center;
+}
+.horizontal-small {
+  aspect-ratio: 756/272;
+}
+.horizontal-big {
+  aspect-ratio: 756/465;
+}
+.double {
+  display: flex;
 }
 .quote {
   background-color: var(--white);
@@ -219,8 +351,12 @@ section.right,
 .quote-img p {
   position: absolute;
   top: 0;
-  padding: calc(var(--gutter)/2) var(--gutter);
+  padding: calc(var(--gutter)/2) var(--gutter) var(--gutter);
   hyphens: auto;
+}
+.quote-img.bottom p {
+  top: unset;
+  bottom: 0;
 }
 .people .grid {
   grid-template-columns: repeat(5, 1fr);
@@ -261,7 +397,15 @@ section.right,
 .launch-info p {
   margin-top: .6em;
 }
-
+.credits {
+  background-color: var(--white);
+  color: var(--black);
+  padding: var(--gutter) var(--gutter) calc(1.2*2.5rem + .777rem + var(--gutter)*2);
+  line-height: .860;
+}
+.credits a {
+  font-weight: 400;
+}
 
 @media screen and (max-width: 1400px) {
   .people .grid { grid-template-columns: repeat(4, 1fr); }

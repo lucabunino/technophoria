@@ -3,10 +3,23 @@
 import '../app.css'
 import { page } from '$app/stores';
 import { onMount } from "svelte";
-const { children } = $props()
+import { browser } from '$app/environment';
+import { navigating } from '$app/stores';
+
+// Shop
+import CartUI from '$lib/components/CartUI.svelte';
+import { createCart, getCart } from '$lib/api/shopify';
+import { cartIdStore, cartItemsStore, closeCartDialog } from '$lib/stores';
+
+// Cart
+import { getCartStore } from '$lib/cart.svelte.js';
+const cart = getCartStore();
+
+const { data, children } = $props()
+$inspect(data)
 
 // Stores
-import { getPosition } from "$lib/mouse.svelte.js";
+import { getPosition } from "$lib/utils/mouse.svelte.js";
 let mouse = getPosition()
 
 // Variables
@@ -20,6 +33,45 @@ $effect(() => {
     domLoaded = true
   }, 200);
 })
+
+let cartId = $state();
+let cartUrl = $state();
+
+onMount(async () => {
+  if (browser) {
+    cartId = localStorage.getItem('cart_id');
+    cart.setIdStore(cartId)
+    // cartIdStore.set(cartId);
+  }
+  if (!cartId) {
+    const response = await createCart();
+    cartId = response.cartCreate.cart.id;    
+    if (browser) {
+      localStorage.setItem('cart_id', cartId);
+      cart.setIdStore(cartId)
+      // cartIdStore.set(cartId);
+    }
+    cartUrl = response.cartCreate.cart.checkoutUrl;
+  } else {
+    const response = await getCart({ cartId: cartId });
+    if (response.cart) {
+      cartId = response.cart.id;
+      cartUrl = response.cart.checkoutUrl;
+      cart.setItemsStore(response.cart.lines.edges);
+      // cartItemsStore.set(response.cart.lines.edges);
+    } else {
+      const response = await createCart();
+      cartId = response.cartCreate.cart.id;
+      if (browser) {
+        localStorage.setItem('cart_id', cartId);
+        cart.setIdStore(cartId)
+        // cartIdStore.set(cartId);
+      }
+    }
+  }
+  console.log(cartId);
+  console.log(cartUrl);  
+});
 
 // Grid (not needed in production)
 let viewGrid = $state(false)
@@ -40,6 +92,7 @@ function toggleCredits() {
   }, 200);
 }
 
+// Marquee
 function marquee(node, speed) {
   let scrollAmount = 0;
   let frame;
@@ -91,29 +144,31 @@ function marquee(node, speed) {
 <header>
   <nav>
     <ul class="menu uppercase europa-24">
-      {#if $page.url.pathname !== "/"}<li class="menu-item"><a href="/">Home</a></li>{/if}
-      <li class="menu-item" class:white={mouse.position.x > innerWidth/2}><button class="transition">Cart (0)</button></li>
+      {#if $page.url.pathname !== "/"}<li class="menu-item" class:white={$page.url.pathname !== "/"}><a href="/">Home</a></li>{/if}
+      <li class="menu-item cart" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.itemsStore[0] ? cart.itemsStore[0].node.quantity : 0})</button></li>
     </ul>
   </nav>
 </header>
+
+<CartUI {cartUrl} cartItems={cart.itemsStore} />
 
 <main class:loaded={domLoaded}>
   {@render children()}
 </main>
 
-{#if $page.url.pathname === "/"}
+<!-- {#if $page.url.pathname === "/"}
 <div class="marquee europa-45" use:marquee={1}>
   <p>OOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France //{@html ' B'}</p>
   <p>OOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France //{@html ' B'}</p>
 </div>
-{/if}
+{/if} -->
 
-<footer class="europa-10 uppercase">
+<footer class="europa-10">
   <ul>
-    <li>To be done</li>
-  </ul>
-  <ul>
-    <li><a class:active={$page.url.pathname == '/technophoria'} href="/technophoria">Technophoria</a></li>
+    <li><a href="" class="uppercase">Terms and condition</a></li>
+    <li><p>Felicity Ingram Rapideye, 79 Leonard Street, London.</p><p>EC2A 4QS <a href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">felicityingram.com</a></p></li>
+    <li><p>Date of Pubblication: XXX</p></li>
+    <li><p>A editorial project by Felicity Ingram</p><p class="uppercase">First Edition © 2025</p></li>
   </ul>
 </footer>
 {/if}
@@ -127,7 +182,7 @@ header {
   top: 0;
   left: 0;
   z-index: 3;
-  margin: calc(var(--gutter)/2) var(--gutter);
+  margin: calc(var(--gutter)/1.5) var(--gutter);
   width: -webkit-fill-available;
 }
 .menu {
@@ -140,11 +195,16 @@ header {
 .menu-item {
   color: var(--black);
 }
-.menu-item.white button {
+.menu-item.white button,
+.menu-item.white a {
   color: var(--white);
 }
-.menu-item.white button:hover {
+.menu-item.white button:hover,
+.menu-item.white a:hover {
   color: var(--gray);
+}
+.menu-item.cart button {
+  transition: none;
 }
 main {
   display: grid;
@@ -171,18 +231,10 @@ main {
 }
 
 /* Footer */
-footer {
-  height: 50vh;
-  height: 50svh;
-  background-color: var(--white);
-  color: var(--black);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 footer ul {
   list-style: none;
-  padding: 0;
+  padding: var(--gutter);
+  display: flex;
+  justify-content: space-between;
 }
 </style>
