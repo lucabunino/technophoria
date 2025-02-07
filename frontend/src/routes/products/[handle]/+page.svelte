@@ -97,12 +97,12 @@ async function decrementQuantity(item) {
 			<button onclick={() => {incrementQuantity(quantity)}}>+</button>
 		</div>
 		<AsyncButton
-		classes="btn hero border-white europa-18 fullWidth"
+		classes="btn border-white europa-18 fullWidth"
 		handler={addToCartHandler}
 		label="Add to cart"
 		/>
 		<AsyncButton
-			classes="btn hero border-white europa-18 fullWidth"
+			classes="btn border-white europa-18 fullWidth"
 			handler={buyNowHandler}
 			label="Buy now"
 		/>

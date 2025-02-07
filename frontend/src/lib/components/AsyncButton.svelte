@@ -1,18 +1,16 @@
 <script>
-	import LoadSpinner from './ui-helpers/LoadSpinner.svelte';
+let {
+	label = '',
+	handler,
+	classes = '',
+} = $props();
+let loading = $state(false);
 
-	let {
-		label = '',
-		handler,
-		classes = '',
-	} = $props();
-	let loading = $state(false);
-
-	async function handleClick() {
-		loading = true;
-		await handler();
-		loading = false;
-	}
+async function handleClick() {
+	loading = true;
+	await handler();
+	loading = false;
+}
 </script>
 
 <button onclick={handleClick} class={classes}>
