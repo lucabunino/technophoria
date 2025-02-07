@@ -12,7 +12,7 @@
 	{/each}
 </ul>
 
-<style lang="scss">
+<style>
 	ul {
 		flex-wrap: wrap;
 		width: 100vw;

@@ -1,5 +1,5 @@
 <script>
-	import ImageCarousel from './ImageCarousel.svelte';
+	import ImageCarousel from './Swiper.svelte';
 	import ProductOptions from './ProductOptions.svelte';
 	import { addToCart, checkoutItem } from '$lib/utils/cart';
 	import { cartIdStore, cartItemsStore } from '$lib/stores';

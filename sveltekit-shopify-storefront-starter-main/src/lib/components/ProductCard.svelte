@@ -2,14 +2,16 @@
 	import { formatPrice } from '$lib/utils/format';
 	import QuickBuyDialog from './QuickBuyDialog.svelte';
 
-	export let title;
-	export let price;
-	export let handle;
-	export let thumbnail;
-	export let options;
-	export let variants;
+let {
+		title,
+		price,
+		handle,
+		thumbnail,
+		options,
+		variants
+	} = $props();
 
-	let showDialog = false;
+	let showDialog = $state(false);
 </script>
 
 <div class="card-parent-container">
