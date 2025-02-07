@@ -1,16 +1,13 @@
 <script>
 	import { run } from 'svelte/legacy';
-	import { closeCartDialog } from '$lib/stores';
 	import LineItem from './LineItem.svelte';
 
 	// Cart
 	import { getCartStore } from '$lib/cart.svelte.js';
 	const cart = getCartStore();
+	$inspect(cart)
 
 	let element = $state();
-
-	let { cartUrl, cartItems = [] } = $props();
-
 	let display = $state('none');
 	let right = $state('-100%');
 
@@ -37,17 +34,17 @@
 
 <div style:--right={right} class="cart-container europa-24" bind:this={element}>
 	<div class="cart-header uppercase">
-		{#if cartItems.length === 0}
+		{#if cart.items.length === 0}
 		<p>Cart is empty</p>
 		{:else}
-			<h1 class="flex-center">Cart ({cartItems[0] ? cartItems[0].node.quantity : 0})</h1>
+			<h1 class="flex-center">Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</h1>
 		{/if}
 		<button class="close-btn" onclick={() => { cart.setDialog(true) }}>Close</button>
 	</div>
 	
-	{#if cartItems.length !== 0}
+	{#if cart.items.length !== 0}
 		<ul class="cart-content">
-			{#each cartItems as item (item.node.id)}
+			{#each cart.items as item (item.node.id)}
 				<li>
 					<LineItem {item} />
 				</li>
@@ -56,7 +53,7 @@
 
 		<div class="checkout">
 			<p>Shipment and discount codes are added at checkout</p>
-			<a class="uppercase" href={cartUrl}>Checkout</a>
+			<a class="uppercase" href={cart.checkoutUrl}>Checkout</a>
 		</div>
 	{/if}
 </div>

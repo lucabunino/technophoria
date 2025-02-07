@@ -1,31 +1,39 @@
 let dialog = $state(true);
-let idStore = $state();
-let itemsStore = $state([]);
+let id = $state();
+let items = $state([]);
+let checkoutUrl = $state();
 
 export function getCartStore() {
 	
 	function setDialog(d) {
 		dialog = d
 	}
-	function setIdStore(i) {
-		idStore = i
+	function setId(i) {
+		id = i
 	}
-	function setItemsStore(i) {
-		itemsStore = i
+	function setItems(i) {
+		items = i
+	}
+	function setCheckoutUrl(c) {
+		checkoutUrl = c
 	}
 
 	return {
 		get dialog() {
 			return dialog;
 		},
-		get idStore() {
-			return idStore;
+		get id() {
+			return id;
 		},
-		get itemsStore() {
-			return itemsStore;
+		get items() {
+			return items;
+		},
+		get checkoutUrl() {
+			return checkoutUrl;
 		},
 		setDialog,
-		setIdStore,
-		setItemsStore,
+		setId,
+		setItems,
+		setCheckoutUrl,
 	};
 }

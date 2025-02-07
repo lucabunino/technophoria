@@ -12,7 +12,7 @@ import {
 } from './queries';
 
 const shopifyClient = new GraphQLClient(
-	` https://${import.meta.env.VITE_STORE_NAME}.myshopify.com/api/2021-07/graphql.json`,
+	` https://${import.meta.env.VITE_STORE_NAME}.myshopify.com/api/2025-01/graphql.json`,
 	{
 		headers: {
 			'Content-Type': 'application/json',

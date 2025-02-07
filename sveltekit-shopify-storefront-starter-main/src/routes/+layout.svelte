@@ -12,8 +12,8 @@
 	import PageLoader from '../lib/components/ui-helpers/PageLoader.svelte';
 	import { fly } from 'svelte/transition';
 
-	let cartId = $state();
-	let cartUrl = $state();
+	let cartId;
+	let cartUrl;
 
 	export let data;
 

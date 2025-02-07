@@ -9,7 +9,6 @@ import { navigating } from '$app/stores';
 // Shop
 import CartUI from '$lib/components/CartUI.svelte';
 import { createCart, getCart } from '$lib/api/shopify';
-import { cartIdStore, cartItemsStore, closeCartDialog } from '$lib/stores';
 
 // Cart
 import { getCartStore } from '$lib/cart.svelte.js';
@@ -40,37 +39,33 @@ let cartUrl = $state();
 onMount(async () => {
   if (browser) {
     cartId = localStorage.getItem('cart_id');
-    cart.setIdStore(cartId)
-    // cartIdStore.set(cartId);
+    cart.setId(cartId)
   }
   if (!cartId) {
     const response = await createCart();
     cartId = response.cartCreate.cart.id;    
     if (browser) {
       localStorage.setItem('cart_id', cartId);
-      cart.setIdStore(cartId)
-      // cartIdStore.set(cartId);
+      cart.setId(cartId)
     }
-    cartUrl = response.cartCreate.cart.checkoutUrl;
+    cart.setCheckoutUrl(response.cartCreate.cart.checkoutUrl);
+    console.log("CART: " + cart.checkoutUrl);
+    
   } else {
     const response = await getCart({ cartId: cartId });
     if (response.cart) {
       cartId = response.cart.id;
-      cartUrl = response.cart.checkoutUrl;
-      cart.setItemsStore(response.cart.lines.edges);
-      // cartItemsStore.set(response.cart.lines.edges);
+      cart.setCheckoutUrl(response.cart.checkoutUrl);
+      cart.setItems(response.cart.lines.edges);
     } else {
       const response = await createCart();
       cartId = response.cartCreate.cart.id;
       if (browser) {
         localStorage.setItem('cart_id', cartId);
-        cart.setIdStore(cartId)
-        // cartIdStore.set(cartId);
+        cart.setId(cartId)
       }
     }
   }
-  console.log(cartId);
-  console.log(cartUrl);  
 });
 
 // Grid (not needed in production)
@@ -145,12 +140,12 @@ function marquee(node, speed) {
   <nav>
     <ul class="menu uppercase europa-24">
       {#if $page.url.pathname !== "/"}<li class="menu-item" class:white={$page.url.pathname !== "/"}><a href="/">Home</a></li>{/if}
-      <li class="menu-item cart" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.itemsStore[0] ? cart.itemsStore[0].node.quantity : 0})</button></li>
+      <li class="menu-item cart" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</button></li>
     </ul>
   </nav>
 </header>
 
-<CartUI {cartUrl} cartItems={cart.itemsStore} />
+<CartUI/>
 
 <main class:loaded={domLoaded}>
   {@render children()}

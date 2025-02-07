@@ -20,6 +20,7 @@ export function createProductTemplate(product) {
 		title: product?.title,
 		handle: product?.handle,
 		description: product?.description,
+		descriptionHtml: product?.descriptionHtml,
 		images: product?.images?.edges?.map((image) => {
 			return {
 				src: image?.node?.originalSrc,

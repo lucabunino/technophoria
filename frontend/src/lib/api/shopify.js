@@ -24,7 +24,6 @@ const shopifyClient = new GraphQLClient(
 export async function shopifyRequest(query, variables) {
 	try {
 		const response = await shopifyClient.request(query, variables);
-		console.log(response);
 		return response;
 	} catch (error) {
 		throw error;

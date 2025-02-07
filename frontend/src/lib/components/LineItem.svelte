@@ -10,7 +10,7 @@
 
 	async function incrementQuantity(item) {
 		const response = await updateLineItem({
-			cartId: cart.idStore,
+			cartId: cart.id,
 			lines: [
 				{
 					id: item?.node?.id,
@@ -19,12 +19,12 @@
 				}
 			]
 		});
-		cart.setItemsStore(response?.cartLinesUpdate?.cart?.lines?.edges);
+		cart.setItems(response?.cartLinesUpdate?.cart?.lines?.edges);
 	}
 
 	async function decrementQuantity(item) {
 		const response = await updateLineItem({
-			cartId: cart.idStore,
+			cartId: cart.id,
 			lines: [
 				{
 					id: item?.node?.id,
@@ -33,16 +33,16 @@
 				}
 			]
 		});
-		cart.setItemsStore(response?.cartLinesUpdate?.cart?.lines?.edges);
+		cart.setItems(response?.cartLinesUpdate?.cart?.lines?.edges);
 	}
 
 	async function removeCartItem(itemToRemove, i) {
 		await removeLineItem({
-			cartId: cart.idStore,
+			cartId: cart.id,
 			lineIds: [i]
 		});
 
-		cart.setItemsStore(cart.itemsStore.filter((item) => item !== itemToRemove));
+		cart.setItems(cart.items.filter((item) => item !== itemToRemove));
 	}
 </script>
 
@@ -67,8 +67,7 @@
 		<div class="counter europa-22">
 			<button onclick={() => {decrementQuantity(item)}}>–</button>
 			<span>{item.node.quantity}</span>
-			<button onclick={() => {incrementQuantity(item)}}>+</button
-			>
+			<button onclick={() => {incrementQuantity(item)}}>+</button>
 		</div>
 	</div>
 </div>

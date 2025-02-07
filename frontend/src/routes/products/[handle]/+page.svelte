@@ -28,36 +28,38 @@ async function addToCartHandler() {
 			throw new Error("No variants available for this product");
 		}
 
-		const variantId = variants[0]?.id; // Use first variant's ID
-
 		// Ensure selectedOptions is populated even if there's only one option
 		if (optionNames.length === 1) {
 			selectedOptions[optionNames[0]] = variants[0]?.title; // Assign default value
 		}
 
-		const cartItems = await addToCart(quantity, cart.idStore, variants, selectedOptions, optionNames);
-		cart.setItemsStore(cartItems);
+		const cartItems = await addToCart(quantity, cart.id, variants, selectedOptions, optionNames);
+		cart.setItems(cartItems);
 		cart.setDialog(false);
 	} catch (error) {
 		errorMessage = error.message;
 	}
 }
-
 async function buyNowHandler() {
 	try {
 		if (!variants?.length) {
 			throw new Error("No variants available for this product");
 		}
 
-		const variantId = variants[0]?.id; // Use first variant's ID
-
 		// Ensure selectedOptions is populated even if there's only one option
 		if (optionNames.length === 1) {
-			selectedOptions[optionNames[0]] = variants[0]?.title;
+			selectedOptions[optionNames[0]] = variants[0]?.title; // Assign default value
 		}
+
+		const cartItems = await addToCart(quantity, cart.id, variants, selectedOptions, optionNames);
+		cart.setItems(cartItems);
+		if (!cartItems) {
+			throw new Error("No cart items!");
+		}
+
+		window.location.href = cart.checkoutUrl;
 		
-		const checkoutUrl = await checkoutItem(quantity, cart.idStore, variants, selectedOptions, optionNames);
-		goto(checkoutUrl);
+		// cart.setDialog(false);
 	} catch (error) {
 		errorMessage = error.message;
 	}
@@ -108,21 +110,9 @@ async function decrementQuantity(item) {
 		/>
 	</div>
 
-	<!-- {#if product.description}
-		<p>
-			{product.description}
-		</p>
-	{/if} -->
-
-	<p>INFORMATION:</p>
-	<p>Editorial Size: 260mm x 300mm</p>
-	<p>Number of copies: xxx</p>
-	<p>Photographer: Felicity Ingram</p>
-	<p>Casting: Emma Mattell</p>
-	<p>Creative Director: Sarah Bassett</p>
-	<p>Printing: Roy Killen, printed in London SW1</p>
-	<p>First Edition Limited to 500 copies</p>
-	<p>@felicityingram</p>
+	{#if product.descriptionHtml}
+		{@html product.descriptionHtml}
+	{/if}
 
 	{#if errorMessage != ''}
 		<p class="error">{errorMessage}</p>
@@ -130,6 +120,9 @@ async function decrementQuantity(item) {
 </div>
 
 <style>
+:global(.regular) {
+	font-weight: 400;
+}
 .btns {
 	display: flex;
 	flex-direction: column;
@@ -143,6 +136,9 @@ async function decrementQuantity(item) {
 }
 .counter span {
 	margin: 0 .5em;
+	width: 1em;
+	display: inline-block;
+	text-align: center;
 }
 .counter:hover {
 	background-color: unset;

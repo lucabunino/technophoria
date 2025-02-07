@@ -49,8 +49,8 @@ async function addToCartHandler() {
 			selectedOptions[optionNames[0]] = variants[0]?.title; // Assign default value
 		}
 
-		const cartItems = await addToCart(quantity, cart.idStore, variants, selectedOptions, optionNames);
-		cart.setItemsStore(cartItems);
+		const cartItems = await addToCart(quantity, cart.id, variants, selectedOptions, optionNames);
+		cart.setItems(cartItems);
 		cart.setDialog(false);
 	} catch (error) {
 		errorMessage = error.message;

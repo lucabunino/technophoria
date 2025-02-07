@@ -41,6 +41,7 @@ export const FETCH_PRODUCT = `query getProductByHandle($handle: String, $imgCoun
     }
     title
     description
+    descriptionHtml
     handle
   }
 }

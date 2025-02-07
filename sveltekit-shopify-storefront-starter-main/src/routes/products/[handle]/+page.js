@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import { fetchProduct } from '../../../lib/api/shopify';
-import { createProductTemplate } from '../../../lib/utils/product';
+import { fetchProduct } from '$lib/api/shopify';
+import { createProductTemplate } from '$lib/utils/product';
 
 export async function load({ params }) {
 	const response = await fetchProduct({
