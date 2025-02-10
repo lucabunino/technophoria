@@ -31,7 +31,7 @@ $effect(() => {
 	{#each images as image, i}
 		<swiper-slide>
 				 <div class="media-container">
-					<Media lowRes={image.src} contain={true} highRes={image.src} alt={image.alt}/>
+					<Media low={image.src} contain={true} high={image.src} alt={image.alt}/>
 				 </div>
 		</swiper-slide>
 	{/each}
@@ -41,7 +41,7 @@ $effect(() => {
 	{#each images as image, i}
 		<swiper-slide>
 				 <div class="media-container">
-					<Media lowRes={image.src} contain={true} highRes={image.src} alt={image.alt}/>
+					<Media low={image.src} contain={true} high={image.src} alt={image.alt}/>
 				 </div>
 		</swiper-slide>
 	{/each}
@@ -86,11 +86,16 @@ swiper-container::part(button-prev),
 swiper-container::part(button-next) {
 	position: absolute;
 	top: 0;
-	right: 0;
 	height: 100%;
   width: 50%;
 	background-color: transparent;
 	margin: 0;
+}
+swiper-container::part(button-prev) {
+	left: 0;
+}
+swiper-container::part(button-next) {
+	right: 0;
 }
 :global(.thumbs swiper-slide:not(.swiper-slide-thumb-active)) {
 	opacity: .5;

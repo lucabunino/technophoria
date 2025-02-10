@@ -1,7 +1,7 @@
 <script>
   const {
-    lowRes = null,
-    highRes = null,
+    low = null,
+    high = null,
     video = null,
     alt = '',
     cover = false,
@@ -13,7 +13,7 @@
 
   import { onMount } from 'svelte';
 
-  let imgSrc = $state(lowRes);
+  let imgSrc = $state(low);
   let blurred = $state(true);
   let loaded = $state(false);
   let observer;
@@ -51,14 +51,13 @@
   }
 
   $effect(() => {
-    const highResImg = new Image();
-    highResImg.src = highRes;
-    highResImg.onload = () => {
-      imgSrc = highRes;
+    const highImg = new Image();    
+    highImg.src = high;
+    highImg.onload = () => {
+      imgSrc = high;
       loaded = true;
       if (isInViewport(img)) blurred = false;
     };
-
     return () => observer?.disconnect();
   });
 </script>

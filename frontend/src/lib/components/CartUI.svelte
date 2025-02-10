@@ -92,6 +92,7 @@
 	border-bottom: solid 1px var(--black);
 }
 .checkout {
+	width: 100%;
 	position: absolute;
 	bottom: 0;
 }
@@ -111,8 +112,11 @@
 	background-color: var(--white);
 	color: var(--black);
 }
-
-
+@media screen and (max-width: 900px) {
+  .cart-container {
+		width: 85vw;
+	}
+}
 @media (max-width: 440px) {
 	.cart-parent-container {
 		width: 100vw;

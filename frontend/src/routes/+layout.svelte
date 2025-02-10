@@ -140,6 +140,7 @@ function marquee(node, speed) {
   <nav>
     <ul class="menu uppercase europa-24">
       {#if $page.url.pathname !== "/"}<li class="menu-item" class:white={$page.url.pathname !== "/"}><a href="/">Home</a></li>{/if}
+      {#if $page.url.pathname === "/"}<li class="mobile-only menu-item"><a href="/products/technophoria-by-felicity-ingram">Shop</a></li>{/if}
       <li class="menu-item cart" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</button></li>
     </ul>
   </nav>
@@ -207,6 +208,21 @@ main {
   width: 100%;
 }
 
+@media screen and (max-width: 900px) {
+  header {
+    top: var(--gutter);
+  }
+  .menu {
+    justify-content: space-between;
+  }
+  .menu-item {
+    color: var(--white);
+  }
+  header {
+    mix-blend-mode: difference;
+  }
+}
+
 /* Marquee */
 .marquee {
   position: fixed;
@@ -226,10 +242,24 @@ main {
 }
 
 /* Footer */
+footer {
+  background-color: var(--black);
+  z-index: 4;
+  position: relative;
+}
 footer ul {
   list-style: none;
   padding: var(--gutter);
   display: flex;
   justify-content: space-between;
+  border-top: solid 1px var(--white);
+}
+
+@media screen and (max-width: 900px) {
+  footer ul {
+    display: grid;
+    gap: var(--gutter);
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>

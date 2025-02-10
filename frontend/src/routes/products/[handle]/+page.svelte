@@ -93,7 +93,7 @@ async function decrementQuantity(item) {
 	</p>
 	<!-- <ProductOptions {product.options} bind:selectedOptions /> -->
 	<div class="btns">
-		<div class="btn counter europa-22">
+		<div class="btn product-counter europa-22 fullWidth">
 			<button onclick={() => {decrementQuantity(quantity)}}>–</button>
 			<span>{quantity}</span>
 			<button onclick={() => {incrementQuantity(quantity)}}>+</button>
@@ -104,9 +104,9 @@ async function decrementQuantity(item) {
 		label="Add to cart"
 		/>
 		<AsyncButton
-			classes="btn border-white europa-18 fullWidth"
+			classes="btn border-white europa-18 fullWidth active"
 			handler={buyNowHandler}
-			label="Buy now"
+			label="Preorder now"
 		/>
 	</div>
 
@@ -120,36 +120,48 @@ async function decrementQuantity(item) {
 </div>
 
 <style>
+:global(.body) {
+	margin-bottom: calc(var(--gutter)*3);
+}
+:global(.body div + div) {
+	margin-top: 1em;
+}
 :global(.regular) {
 	font-weight: 400;
 }
 .btns {
 	display: flex;
-	flex-direction: column;
 	gap: var(--gutter);
 	width: 100%;
-	margin-bottom: calc(var(--gutter)*5);
+	margin-bottom: calc(var(--gutter)*3);
 }
-.counter {
+.product-counter {
 	border: solid 3px var(--white);
-	width: fit-content;
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 0;
 }
-.counter span {
+:global(.product-counter button) {
+	padding: .7rem 0;
+}
+.product-counter span {
 	margin: 0 .5em;
 	width: 1em;
 	display: inline-block;
 	text-align: center;
 }
-.counter:hover {
+.product-counter:hover {
 	background-color: unset;
 }
-.counter:hover button, .counter:hover span {
+.product-counter:hover button, .product-counter:hover span {
 	color: var(--white);
 }
-.counter button {
+.product-counter button {
 	width: 1.1em;
 }
-.counter button:hover {
+.product-counter button:hover {
 	color: var(--gray);
 }
 .product-images {

@@ -1,12 +1,27 @@
 <script>
+import { addToCart } from '$lib/utils/cart';
+import Media from "$lib/components/Media.svelte";
+import QuickBuyDialog from "$lib/components/QuickBuyDialog.svelte";
+import ProductCard from "$lib/components/ProductCard.svelte";
+import AsyncButton from "$lib/components/AsyncButton.svelte";
+import { goto } from '$app/navigation';
+
+// Cart
+import { getCartStore } from '$lib/cart.svelte.js';
+const cart = getCartStore();
+
+
 let innerWidth = $state()
 let personHover = $state(false)
 let domLoaded = $state(false);
 
-
-import Media from "$lib/components/Media.svelte";
-import QuickBuyDialog from "$lib/components/QuickBuyDialog.svelte";
-import ProductCard from "$lib/components/ProductCard.svelte";
+let options = $state(data.product.options);
+let title = $state(data.product.title);
+let variants = $state(data.product.variants);
+let quantity = $state(1);
+let selectedOptions = $state({});
+let errorMessage = $state();
+let optionNames = options?.map((option) => option.name);
 
 let mouse = getPosition()
 import { getPosition } from "$lib/utils/mouse.svelte.js";
@@ -20,7 +35,9 @@ const getTime = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minu
 
 // Lifecycle
 $effect(() => {
-  domLoaded = true
+  setTimeout(() => {
+    domLoaded = true
+  }, 300);
   const updateTimes = () => {
     for (const city in cities) {
       times[city] = getTime(cities[city]);
@@ -31,23 +48,26 @@ $effect(() => {
   return () => clearInterval(interval);
 })
 
-let people = [
-  { name: "Sachi", handle: "@sachishimiz", instagram: "https://www.instagram.com/sachishimiz/", location: "Tokyo", pronoun: "She/Her" },
-  { name: "Hiroshi", handle: "@hiroshitanaka", instagram: "https://www.instagram.com/hiroshitanaka/", location: "Osaka", pronoun: "He/Him" },
-  { name: "Emiko", handle: "@emikoyamamoto", instagram: "https://www.instagram.com/emikoyamamoto/", location: "Kyoto", pronoun: "She/Her" },
-  { name: "Kenji", handle: "@kenjifujimoto", instagram: "https://www.instagram.com/kenjifujimoto/", location: "Sapporo", pronoun: "He/Him" },
-  { name: "Naomi", handle: "@naomikobayashi", instagram: "https://www.instagram.com/naomikobayashi/", location: "Nagoya", pronoun: "She/Her" },
-  { name: "Takeshi", handle: "@takeshiwatanabe", instagram: "https://www.instagram.com/takeshiwatanabe/", location: "Fukuoka", pronoun: "He/Him" },
-  { name: "Yuki", handle: "@yukimatsumoto", instagram: "https://www.instagram.com/yukimatsumoto/", location: "Tokyo", pronoun: "They/Them" },
-  { name: "Aiko", handle: "@aikoyamada", instagram: "https://www.instagram.com/aikoyamada/", location: "Hiroshima", pronoun: "She/Her" },
-  { name: "Kenta", handle: "@kentatanaka", instagram: "https://www.instagram.com/kentatanaka/", location: "Osaka", pronoun: "He/Him" },
-  { name: "Mika", handle: "@mikashirai", instagram: "https://www.instagram.com/mikashirai/", location: "Yokohama", pronoun: "She/Her" },
-  { name: "Ryo", handle: "@ryosugimoto", instagram: "https://www.instagram.com/ryosugimoto/", location: "Sendai", pronoun: "He/Him" },
-  { name: "Haruka", handle: "@harukafujii", instagram: "https://www.instagram.com/harukafujii/", location: "Kobe", pronoun: "She/Her" },
-  { name: "Taro", handle: "@taroyoshida", instagram: "https://www.instagram.com/taroyoshida/", location: "Tokyo", pronoun: "He/Him" },
-  { name: "Sayuri", handle: "@sayurikawasaki", instagram: "https://www.instagram.com/sayurikawasaki/", location: "Nagano", pronoun: "She/Her" },
-  { name: "Daichi", handle: "@daichisato", instagram: "https://www.instagram.com/daichisato/", location: "Okinawa", pronoun: "He/Him" }
-];
+async function addToCartHandler() {
+	try {
+		if (!variants?.length) {
+			throw new Error("No variants available for this product");
+		}
+
+		// Ensure selectedOptions is populated even if there's only one option
+		if (optionNames.length === 1) {
+			selectedOptions[optionNames[0]] = variants[0]?.title; // Assign default value
+		}
+
+		const cartItems = await addToCart(quantity, cart.id, variants, selectedOptions, optionNames);
+		cart.setItems(cartItems);
+    console.log(cart.items);
+    
+    goto(`/products/${data.product.handle}`)
+	} catch (error) {
+		errorMessage = error.message;
+	}
+}
 
 function handleMouseMove(e) {
   mouse.position.x = e.clientX;
@@ -80,7 +100,7 @@ function marquee(node, speed) {
 
 <section class="left">
   <div class="times-container">
-    <div class="times uppercase eurostile-14" class:loaded={domLoaded && !personHover}>
+    <div class="times uppercase eurostile-14 mobile-eurostile-7" class:loaded={domLoaded && !personHover}>
       <div>
         <p>London {times.london}</p>
         <p>Berlin {times.berlin}</p>
@@ -94,87 +114,229 @@ function marquee(node, speed) {
     </div>
   </div>
 
-  <div class="marquee europa-45">
+  <div class="marquee europa-45-regular">
     <div use:marquee={1}>
       <p>BOOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France // </p>
       <p>BOOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France // </p>
     </div>
   </div>
-
+    
   <div class="block vertical hero">
-    <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-1-low.webp" high="/img/vertical-1.webp" cover={true} alt="A beautiful landscape"/>
     <ul class="top-credits europa-22">
       <li>Photographer<br><a class="europa-28 uppercase" href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></li>
       <li>Casting<br><a class="europa-28 uppercase" href="https://www.instagram.com/emmamatell" target="_blank" rel="noopener noreferrer">Emma Matell</a></li>
       <li>Creative Direction<br><a class="europa-28 uppercase" href="https://www.sarah-bassett.com/" target="_blank" rel="noopener noreferrer">Sarah Bassett</a></li>
     </ul>
-    <h2 class="uppercase europa-66">Technophoria<br>By Felicity Ingram<br><span class="lowercase">6th</span> March 2025</h2>
-    <a class="btn hero" class:hidden={!domLoaded} href="/products/{data.product.handle}">Preorder now</a>
-  </div>
-  
-  <div class="block quote-img europa-66">
-    <Media lowRes="/img/3-lowres.webp" highRes="/img/3.webp" cover={true} alt="A beautiful landscape"/>
-    <p>‘Technophoria is an ode to these moments of transcendence, where the colletive energy or a crowd becomes something greater than the sum of its parts.’</p>
-  </div>
-
-  <div class="block auto horizontal-small">
-    <Media lowRes="/img/3-lowres.webp" highRes="/img/3.webp" cover={true} alt="A beautiful landscape"/>
+    <h2 class="uppercase europa-66">“Technophoria”<br>By Felicity Ingram<br><span class="lowercase">6th</span> March 2025</h2>
+    <AsyncButton
+		classes="{domLoaded ? 'btn hero' : 'btn hero hidden'}"
+		handler={addToCartHandler}
+		label="Preorder now"
+		/>
+    <!-- <a class="btn hero" class:hidden={!domLoaded} href="/products/{data.product.handle}">Preorder now</a> -->
   </div>
 
-  <div class="block auto horizontal-big">
-    <Media lowRes="/img/2-lowres.webp" video="/video/footage-1.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
+  <div class="block auto horizontal-big quote-img bottom europa-95">
+    <Media low="/img/horizontal-1-low.webp" high="/img/horizontal-1.webp" cover={true} alt="A beautiful landscape"/>
+    <p style="transform: rotate(1deg) translateY(-5%);"><span>‘Rave culture</span> <span>embodies</span> <span>freedom, diversity</span> <span>and creativity.’</span></p>
   </div>
-  
+
   <div class="block auto double">
     <div>
-      <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-17-low.webp" high="/img/double-17.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
-    </div>
-  </div>
-  <div class="block auto double">
-    <div>
-      <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
-    </div>
-    <div>
-      <Media lowRes="/img/1-lowres.webp" highRes="/img/1.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-22-low.webp" high="/img/double-22.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
-  <div class="block quote europa-43">
+  <div class="block quote europa-36">
     <p>‘I want to express to the world with my unique make up and musicality, and I hope many people can feel it. Inspiration is my past and also my life experience. I wanted to express the painful and sad things without forgetting them.’</p>
     <p class="author times-27 left">( Unknown, Tokyo )</p>
   </div>
 
+  <div class="block auto">
+    <Media video="/video/footage-1.mp4" high="/img/vertical-2.webp" alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-19-low.webp" high="/img/double-19.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-20-low.webp" high="/img/double-20.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+
   <div class="block vertical">
-    <Media lowRes="/img/2-lowres.webp" video="/video/motion-2.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
+    <Media low="/img/vertical-6-low.webp" high="/img/vertical-6.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
-  <div class="block auto horizontal-big">
-    <Media lowRes="/img/2-lowres.webp" video="/video/footage-2.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-13-low.webp" high="/img/double-13.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-1-low.webp" high="/img/double-1.webp" alt="A beautiful landscape"/>
+    </div>
   </div>
 
   <div class="block vertical">
-    <Media lowRes="/img/2-lowres.webp" video="/video/motion-1.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
+    <Media low="/img/vertical-5-low.webp" high="/img/vertical-5.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
-  <div class="block auto horizontal-small quote-img bottom europa-66">
-    <Media lowRes="/img/2-lowres.webp" video="/video/footage-3.mp4" cover={true} highRes="/img/2.webp" alt="A beautiful landscape"/>
-    <p><span>‘An ode to the power </span> <span>of music and the spaces</span> <span>it creates.’</span></p>
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-4-low.webp" high="/img/double-4.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-16-low.webp" high="/img/double-16.webp" alt="A beautiful landscape"/>
+    </div>
   </div>
+
+  <div class="block auto quote-img bottom europa-75">
+    <Media video="/video/footage-3.mp4" high="/img/horizontal-1.webp"  alt="A beautiful landscape"/>
+    <p><span>An ode to the power</span> <span>of music and the spaces</span> <span>it creates’</span></p>
+  </div>
+
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-5-low.webp" high="/img/double-5.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-23-low.webp" high="/img/double-23.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+  
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-2-low.webp" high="/img/double-2.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-24-low.webp" high="/img/double-24.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+
+  <div class="block vertical">
+    <Media low="/img/vertical-8-low.webp" high="/img/vertical-8.webp" cover={true} alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block auto horizontal-big quote-img europa-64">
+    <Media low="/img/horizontal-2-low.webp" high="/img/horizontal-2.webp" cover={true} alt="A beautiful landscape"/>
+    <p>‘Technophoria is an ode to these moments of transcendence, where the collective energy of a crowd becomes something greater than the sum of its parts.’</p>
+  </div>
+
+  <div class="block vertical">
+    <Media low="/img/vertical-7-low.webp" high="/img/vertical-7.webp" cover={true} alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block quote europa-36">
+    <p>‘It’s a culture where people gather together and cheer for each other.’</p>
+    <p class="author times-27 right">( Jihoon Lee, Seoul )</p>
+  </div>
+
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-10-low.webp" high="/img/double-10.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-21-low.webp" high="/img/double-21.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+
+  <div class="block vertical">
+    <Media low="/img/vertical-2-low.webp" high="/img/vertical-2.webp" cover={true} alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-9-low.webp" high="/img/double-9.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-7-low.webp" high="/img/double-7.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+
+  <div class="block auto">
+    <Media video="/video/footage-2.mp4" high="/img/horizontal-1.webp"  alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-12-low.webp" high="/img/double-12.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-6-low.webp" high="/img/double-6.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+
+  <div class="block vertical">
+    <Media low="/img/vertical-9-low.webp" high="/img/vertical-9.webp" cover={true} alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-3-low.webp" high="/img/double-3.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-8-low.webp" high="/img/double-8.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+
+  <div class="block quote europa-36">
+    <p>‘That’s what i like about it, being free. I think it’s the most important thing to me. I like going alone, meeting people or not. It makes me feel better. ’</p>
+    <p class="author times-27 right">( Val, Marseille )</p>
+  </div>
+
+  <div class="block vertical">
+    <Media low="/img/vertical-3-low.webp" high="/img/vertical-3.webp" cover={true} alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block auto double">
+    <div>
+      <Media low="/img/double-15-low.webp" high="/img/double-15.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-18-low.webp" high="/img/double-18.webp" alt="A beautiful landscape"/>
+    </div>
+  </div>
+
+  <div class="block vertical">
+    <Media low="/img/vertical-4-low.webp" high="/img/vertical-4.webp" cover={true} alt="A beautiful landscape"/>
+  </div>
+
+  <div class="block auto double launch">
+    <div>
+      <Media low="/img/double-14-low.webp" high="/img/double-14.webp" alt="A beautiful landscape"/>
+    </div>
+    <div>
+      <Media low="/img/double-11-low.webp" high="/img/double-11.webp" alt="A beautiful landscape"/>
+    </div>
+    <div class="launch-info europa-30">
+      <p class="europa-45 uppercase">Paris Launch Party</p>
+      <p>6th March 2025</p>
+      <p>Oddity Paris • 27 rue Notre Dame de Nazareth, Paris 45003, France • contact@oddityparis.fr • +33 (0)1 88 61 02 67 • <a href="https://www.instagram.com/oddityparis" target="_blank" rel="noopener noreferrer">@oddityparis</a></p>
+    </div>
+  </div>
+
+
+
+
+
+
 
   <!-- <div class="block people">
     <div class="grid">
       {#each people as person, i}
         <div class="person" onmouseenter={(e) => {personHover = i+1}} onmouseleave={(e) => {personHover = false}}>
           <div>
-            <Media lowRes="/img/people/{i+1}-lowres.webp" highRes="/img/people/{i+1}-thumb.webp" hidden={personHover &&personHover !== i+1} blur={1} delay={i*50} alt="A beautiful landscape"/>
+            <Media low="/img/people/{i+1}-low.webp" high="/img/people/{i+1}-thumb.webp" hidden={personHover &&personHover !== i+1} blur={1} delay={i*50} alt="A beautiful landscape"/>
           </div>
         </div>
       {/each}
       {#each people as person, i}
-        <Media lowRes="/img/people/{i+1}-lowres.webp" highRes="/img/people/{i+1}.webp" hidden={personHover !== i+1} blur={1} cover={true} alt="A beautiful landscape"/>
+        <Media low="/img/people/{i+1}-low.webp" high="/img/people/{i+1}.webp" hidden={personHover !== i+1} blur={1} cover={true} alt="A beautiful landscape"/>
         <div class="person-bg"></div>
         <div class="person-info uppercase" class:hidden={personHover !== i+1}>
           <p>{person.name}</p>
@@ -186,19 +348,10 @@ function marquee(node, speed) {
     </div>
   </div> -->
 
-  <div class="block quote europa-43">
+  <!-- <div class="block quote europa-43">
     <p>‘That’s what i like about it, being free. I think it’s the most important thing to me. I like going alone, meeting people or not. It makes me feel better.’</p>
     <p class="author times-27 right">( Val, Marseille )</p>
-  </div>
-
-  <div class="block launch">
-    <Media lowRes="/img/3-lowres.webp" highRes="/img/3.webp" cover={true} alt="A beautiful landscape"/>
-    <div class="launch-info europa-28">
-      <p class="europa-36 uppercase">Paris Launch Party</p>
-      <p>6th March 2025</p>
-      <p>Oddity Paris • 27 rue Notre Dame de Nazareth, Paris 45003, France • contact@oddityparis.fr • +33 (0)1 88 61 02 67 • <a href="https://www.instagram.com/oddityparis" target="_blank" rel="noopener noreferrer">@oddityparis</a></p>
-    </div>
-  </div>
+  </div> -->
 
   <div class="block credits europa-43">
     <p>Photographer <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></p>
@@ -210,15 +363,13 @@ function marquee(node, speed) {
     <p>Local Production (Seoul) <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Mi Kim</a></p>
     <p>Local Production (Tokyo) <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Ako Suzuki</a></p>
     <p>Digital Art Director <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Virgilia Ramella</a></p>
-    <p>Web Design <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">LIVER</a></p>
-    <p>Web Development <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Luca Bunino</a></p>
+    <p>Web Design <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">LIVER Studio</a><span>{@html ' + '}</span><a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Luca Bunino</a></p>
   </div>
 </section>
 
 
 <section class="right">
-  <!-- <Media lowRes="/img/2-lowres.webp" highRes="/img/2.webp" cover={true} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/> -->
-  <Media lowRes="/img/2-lowres.webp" highRes="/img/cover.webp" cover={true} video="/video/book-1.mp4" blur={3} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
+  <Media cover={true} high="/img/cover.webp" video="/video/book-1.mp4" blur={3} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
   <div class="book">
     <ProductCard product={data.product}/>
   </div>
@@ -228,7 +379,7 @@ function marquee(node, speed) {
 /* Common */
 :global(.btn.hero) {
   position: absolute;
-  top: 80vh;
+  top: 76vh;
 }
 span {
   display: inline-block;
@@ -237,8 +388,8 @@ span {
 /* Times */
 .times-container {
   position: sticky;
-  top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*2);
-  top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*2);
+  top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+  top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*1);
   z-index: 3;
   margin-bottom: calc(1.2*2.5rem);
   mix-blend-mode: difference;
@@ -256,9 +407,29 @@ span {
 }
 .times div {
   width: 50%;
-  padding: var(--gutter);
+  padding: calc(var(--gutter)/2) var(--gutter);
   display: flex;
   justify-content: space-between;
+}
+@media screen and (max-width: 900px) {
+  .times-container {
+    position: fixed;
+    top: 0;
+  }
+  .times div {
+    position: absolute;
+    width: 100%;
+  }
+  .times div:first-of-type {
+    top: 0;
+  }
+  .times div:last-of-type {
+    top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+  }
+  /* .times div:last-child {
+    position: absolute;
+    margin-top: 10rem;
+  } */
 }
 
 /* Marquee */
@@ -286,10 +457,15 @@ span {
 section.left {
   grid-column: 1 / span 6;
 }
+@media screen and (max-width: 900px) {
+  section.left {
+    grid-column: 1 / span 12;
+  }
+}
 section.left > .block,
 section.right,
 .people .grid,
-.double > div {
+.double > div:not(.launch-info) {
   overflow: hidden;
   position: relative;
 }
@@ -306,7 +482,7 @@ section.right,
   align-items: center;
   color: var(--black);
   gap: calc(var(--gutter)*3);
-  margin-top: calc((-.777rem - var(--gutter)*2) - 1.2*5rem);
+  margin-top: calc((-.777rem - var(--gutter)*1) - 1.2*5rem);
 }
 .vertical.hero .top-credits {
   display: flex;
@@ -319,7 +495,7 @@ section.right,
   position: absolute;
   text-align: center;
 }
-.vertical.hero h2 {
+h2 {
   text-align: center;
 }
 .horizontal-small {
@@ -329,7 +505,12 @@ section.right,
   aspect-ratio: 756/465;
 }
 .double {
+  width: 100%;
   display: flex;
+}
+.double > div:not(.launch-info) {
+  width: 50%;
+  overflow: hidden;
 }
 .quote {
   background-color: var(--white);
@@ -385,14 +566,22 @@ section.right,
   transition: var(--transition);
 }
 .launch {
-  position: relative;
+  /* position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 .launch-info {
-  padding: calc(var(--gutter)*7) calc(var(--gutter)*6) calc(var(--gutter)*9);
+  transform: rotate(1deg);
+  opacity: .95;
+  padding: 0 calc(var(--gutter)*6);
   text-align: center;
+  position: absolute;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .launch-info p {
   margin-top: .6em;
@@ -401,9 +590,13 @@ section.right,
   background-color: var(--white);
   color: var(--black);
   padding: var(--gutter) var(--gutter) calc(1.2*2.5rem + .777rem + var(--gutter)*2);
-  line-height: .860;
+  line-height: .800;
 }
 .credits a {
+  font-weight: 400;
+}
+.credits span {
+  display: inline;
   font-weight: 400;
 }
 
@@ -413,11 +606,35 @@ section.right,
 @media screen and (max-width: 1300px) {
   .people .grid { grid-template-columns: repeat(3, 1fr); }
 }
+@media screen and (max-width: 900px) {
+  section.left {
+    grid-column: 1 / span 12;
+    grid-row: 2;
+  }
+  .vertical.hero {
+    margin-top: 0;
+  }
+  h2 {
+    position: fixed;
+    text-align: center;
+    display: block;
+    width: 100%;
+    color: var(--black);
+    top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+    top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+    transform: translateY(-100%);
+    z-index: 3;
+  }
+  .credits {
+    padding: var(--gutter) var(--gutter) calc(1.2*2.5rem + .777rem + var(--gutter)*5);
+  }
+}
 
 /* Right */
 section.right {
   grid-column: 7 / span 6;
-  height: 100vh;
+  height: calc(100vh - 1.2*2.5rem);
+  height: calc(100svh - 1.2*2.5rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -436,5 +653,13 @@ section.right {
   justify-content: center;
   gap: calc(var(--gutter)*3);
   z-index: -2;
+}
+@media screen and (max-width: 900px) {
+  section.right {
+    grid-column: 1 / span 12;
+    position: relative;
+    height: 80vh;
+    height: 80svh;
+  }
 }
 </style>

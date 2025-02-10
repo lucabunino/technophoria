@@ -54,8 +54,7 @@ html {
   -webkit-font-smoothing: antialiased;
   color: var(--white);
   background-color: var(--black);
-  font-size: clamp(13px, calc(3px + 1vw), 18px);
-  /* font-size: clamp(13px, 18px, 18px); */
+  font-size: clamp(10px, calc(3px + 1vw), 18px);
   line-height: 1.1;
   letter-spacing: .02em;
 }
@@ -159,16 +158,40 @@ a.btn:hover,
   background-color: var(--white);
   border: solid 3px var(--white);
 }
+.btn.active:hover {
+  color: var(--black);
+  background-color: var(--gray);
+  border: solid 3px var(--gray);
+}
 
-
+.europa-95 {
+  font-size: 5.277rem;
+  letter-spacing: .02em;
+  line-height: .536;
+}
+.europa-75 {
+  font-size: 4.166rem;
+  letter-spacing: .0em;
+  line-height: .653;
+}
 .europa-66 {
   font-size: 3.666rem;
   letter-spacing: 0em;
   line-height: .696;
 }
-.europa-45 {
+.europa-64 {
+  font-size: 3.555rem;
+  letter-spacing: 0em;
+  line-height: .671;
+}
+.europa-45-regular {
   font-size: 2.5rem;
   font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1;
+}
+.europa-45 {
+  font-size: 2.5rem;
   letter-spacing: 0em;
   line-height: 1;
 }
@@ -181,6 +204,11 @@ a.btn:hover,
   font-size: 2rem;
   letter-spacing: 0em;
   line-height: .837;
+}
+.europa-30 {
+  font-size: 1.666rem;
+  letter-spacing: 0em;
+  line-height: .7;
 }
 .europa-28 {
   font-size: 1.555rem;
@@ -210,6 +238,11 @@ a.btn:hover,
   font-size: .777rem;
   line-height: 1;
 }
+.mobile-eurostile-14 {
+  font-family: Eurostile, 'Courier New', Courier, monospace;
+  font-size: .777rem;
+  line-height: 1;
+}
 .times-27 {
   font-family: TimesTen, 'Times New Roman', Times, serif;
   font-size: 1.5rem;
@@ -218,7 +251,7 @@ a.btn:hover,
 .uppercase {text-transform: uppercase;}
 .lowercase {text-transform: lowercase;}
 .mobile-only {
-  display: none !important;
+  display: none;
 }
 .desktop-only {
   display: unset;

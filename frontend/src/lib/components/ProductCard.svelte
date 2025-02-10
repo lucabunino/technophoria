@@ -3,7 +3,7 @@ import { formatPrice } from '$lib/utils/format';
 import Media from '$lib/components/Media.svelte';
 
 let mouse = getPosition()
-let domLoaded = true
+let domLoaded = $state(false)
 import { getPosition } from "$lib/utils/mouse.svelte.js";
 
 let {
@@ -56,6 +56,12 @@ async function addToCartHandler() {
 		errorMessage = error.message;
 	}
 }
+
+$effect(() => {
+	setTimeout(() => {
+    domLoaded = true		
+  }, 300);
+})
 </script>
 
 <svelte:window onmousemove={(e) => handleMouseMove(e)}></svelte:window>
@@ -63,14 +69,14 @@ async function addToCartHandler() {
 <div class="card-parent-container">
 	<a class="bookCover" href="/products/{product.handle}">
 		{#if product.images}
-			<Media lowRes={product.images[0].src} highRes={product.images[0].src} contain={true} blur={3} hidden={mouse.position.x < innerWidth/2} alt={product.images[0].alt}/>
+			<Media low={product.images[0].src} high={product.images[0].src} contain={true} blur={3} hidden={mouse.position.x < innerWidth/2} alt={product.images[0].alt}/>
 		{:else}
 			<img src="/images/placeholder-big.png" alt="Product thumbnail placeholder" />
 		{/if}
 	</a>
 	<!-- <ProductOptions {options} bind:selectedOptions /> -->
 	<!-- <Counter bind:quantity /> -->
-	<AsyncButton label="Add to cart" classes="btn hero border-white {!domLoaded ? 'hidden' : ''}" handler={addToCartHandler} />
+	<AsyncButton label="Add to cart" classes="btn hero border-white {domLoaded ? '' : 'hidden'}" handler={addToCartHandler} />
 	<!-- <AsyncButton label="Buy now" handler={buyNowHandler} /> -->
 	{#if errorMessage}
 		<p class="error">{errorMessage}</p>
@@ -111,9 +117,10 @@ async function addToCartHandler() {
 		justify-content: center;
 	}
 	.bookCover {
-    width: 60%;
-    height: 45%;
+    width: 65%;
+    height: 65%;
     object-fit: contain;
+		margin-bottom: 10%;
   }
 	.price-buy-container {
 		justify-content: space-between;

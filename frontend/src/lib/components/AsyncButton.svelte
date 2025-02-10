@@ -23,7 +23,7 @@ async function handleClick() {
 
 <style>
 .fullWidth {
-	width: 75%;
+	width: 100%;
 	text-align: center;
 }
 </style>

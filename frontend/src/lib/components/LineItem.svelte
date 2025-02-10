@@ -49,7 +49,9 @@
 <div class="line-item-container">
 	<div class="product-img">
 		{#if item?.node?.merchandise?.product?.images?.edges[0]?.node}
-			<Media lowRes={item?.node?.merchandise?.product?.images?.edges[0]?.node?.originalSrc} highRes={item?.node?.merchandise?.product?.images?.edges[0]?.node?.originalSrc} alt={item?.node?.merchandise?.product?.images?.edges[0]?.node?.altText}/>
+			<div class="media-container">
+				<Media low={item?.node?.merchandise?.product?.images?.edges[0]?.node?.originalSrc} high={item?.node?.merchandise?.product?.images?.edges[0]?.node?.originalSrc} alt={item?.node?.merchandise?.product?.images?.edges[0]?.node?.altText} contain={true}/>
+			</div>
 		{:else}
 			<img src="/images/placeholder-big.png" alt="Placeholder" />
 		{/if}
@@ -73,6 +75,11 @@
 </div>
 
 <style>
+.media-container {
+	width: 95%;
+	height: 75%;
+	overflow: hidden;
+}
 .line-item-container {
 	display: flex;
 	border-top: solid 1px var(--black);
@@ -84,9 +91,13 @@
 	right: var(--gutter);
 } */
 .product-img {
-	width: 30%;
-	max-height: 200px;
+	width: 25%;
 	overflow: hidden;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--black);
 }
 .product-info {
 	display: flex;
@@ -114,5 +125,10 @@
 }
 .price-q-counter-container {
 	justify-content: space-between;
+}
+@media screen and (max-width: 900px) {
+  .line-item-container {
+		padding: calc(var(--gutter)*3) var(--gutter);
+	}
 }
 </style>
