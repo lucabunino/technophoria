@@ -157,7 +157,7 @@ function marquee(node, speed) {
   </div>
 
   <div class="block auto">
-    <Media video="/video/footage-1.mp4" high="/img/vertical-2.webp" alt="A beautiful landscape"/>
+    <Media video="/video/footage-1.mp4" high="/video/footage-1-poster.webp" alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
@@ -196,7 +196,7 @@ function marquee(node, speed) {
   </div>
 
   <div class="block auto quote-img bottom europa-75">
-    <Media video="/video/footage-3.mp4" high="/img/horizontal-1.webp"  alt="A beautiful landscape"/>
+    <Media video="/video/footage-3.mp4" high="/video/footage-3-poster.webp"  alt="A beautiful landscape"/>
     <p><span>An ode to the power</span> <span>of music and the spaces</span> <span>it creates’</span></p>
   </div>
 
@@ -259,7 +259,7 @@ function marquee(node, speed) {
   </div>
 
   <div class="block auto">
-    <Media video="/video/footage-2.mp4" high="/img/horizontal-1.webp"  alt="A beautiful landscape"/>
+    <Media video="/video/footage-2.mp4" high="/video/footage-2-poster.webp"  alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
@@ -369,7 +369,7 @@ function marquee(node, speed) {
 
 
 <section class="right">
-  <Media cover={true} high="/img/cover.webp" video="/video/book-1.mp4" blur={3} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
+  <Media cover={true} high="/video/book-1-poster.webp" video="/video/book-1.mp4" blur={3} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
   <div class="book">
     <ProductCard product={data.product}/>
   </div>
