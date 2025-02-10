@@ -354,16 +354,16 @@ function marquee(node, speed) {
   </div> -->
 
   <div class="block credits europa-43">
-    <p>Photographer <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></p>
-    <p>Casting Director <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Emma Mattell</a></p>
-    <p>Creative Director <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Sarah Bassett</a></p>
-    <p>Studio Manager <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Zac Dinnage</a></p>
-    <p>Video <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">David Jenewein</a></p>
-    <p>Casting Assistant <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Oliwia Jancerowicz</a></p>
-    <p>Local Production (Seoul) <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Mi Kim</a></p>
-    <p>Local Production (Tokyo) <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Ako Suzuki</a></p>
-    <p>Digital Art Director <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Virgilia Ramella</a></p>
-    <p>Web Design <a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">LIVER Studio</a><span>{@html ' + '}</span><a href="http://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Luca Bunino</a></p>
+    <p>Photographer <a href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></p>
+    <p>Casting Director <a href="https://www.instagram.com/emmamatell" target="_blank" rel="noopener noreferrer">Emma Mattell</a></p>
+    <p>Creative Director <a href="https://www.sarah-bassett.com/" target="_blank" rel="noopener noreferrer">Sarah Bassett</a></p>
+    <p>Studio Manager <a href="https://www.dinnage.uk/" target="_blank" rel="noopener noreferrer">Zac Dinnage</a></p>
+    <p>Video <a href="https://www.davidjenewein.com/" target="_blank" rel="noopener noreferrer">David Jenewein</a></p>
+    <p>Casting Assistant <a href="https://www.instagram.com/oliwiajancerowicz" target="_blank" rel="noopener noreferrer">Oliwia Jancerowicz</a></p>
+    <p>Local Production (Seoul) <a href="https://www.instagram.com/m1m1y" target="_blank" rel="noopener noreferrer">Mi Kim</a></p>
+    <p>Local Production (Tokyo) <a href="https://www.instagram.com/____a_k_o____" target="_blank" rel="noopener noreferrer">Ako Suzuki</a></p>
+    <p>Digital Art Director <a href="https://www.linkedin.com/in/virgilia-ramella-5714a7130/" target="_blank" rel="noopener noreferrer">Virgilia Ramella</a></p>
+    <p>Web Design <a href="https://liver.studio/" target="_blank" rel="noopener noreferrer">LIVER Studio</a><span>{@html ' + '}</span><a href="https://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Luca Bunino</a></p>
   </div>
 </section>
 
