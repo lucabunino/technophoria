@@ -197,7 +197,8 @@ function marquee(node, speed) {
 
   <div class="block auto quote-img bottom europa-75">
     <Media video="/video/footage-3.mp4" high="/video/footage-3-poster.webp"  alt="A beautiful landscape"/>
-    <p><span>An ode to the power</span> <span>of music and the spaces</span> <span>it creates’</span></p>
+    <!-- <p><span>‘An ode to the power</span> <span>of music and the spaces</span> <span>it creates’</span></p> -->
+    <p>‘An ode to the power of music and the spaces it creates’</p>
   </div>
 
   <div class="block auto double">
