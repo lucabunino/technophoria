@@ -280,7 +280,7 @@ function marquee(node, speed) {
       <Media low="/img/double-3-low.webp" high="/img/double-3-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-8-low.webp" high="/img/double-8-2560w.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-8-low.webp" high="/img/double-8-2560w.webp" alt="A beautiful landscape" originTop={true}/>
     </div>
   </div>
 

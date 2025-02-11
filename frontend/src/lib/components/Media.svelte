@@ -9,6 +9,7 @@
     hidden = false,
     delay = 0,
     blur = 7,
+    originTop = false,
   } = $props();
 
   import { onMount } from 'svelte';
@@ -78,6 +79,7 @@
 {:else}
   <img
     use:entersViewport
+    class:originTop={originTop}
     class="media"
     class:cover={cover}
     class:contain={contain}
@@ -111,5 +113,9 @@
 
   .blurred {
     filter: blur(var(--blur)) contrast(5);
+  }
+  .originTop {
+    transform-origin: top;
+    object-position: top;
   }
 </style>
