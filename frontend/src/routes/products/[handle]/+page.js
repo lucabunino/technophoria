@@ -18,3 +18,5 @@ export async function load({ params }) {
 		throw error(404, 'Product not found');
 	}
 }
+
+export const prerender = false
