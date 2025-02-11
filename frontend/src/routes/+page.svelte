@@ -369,7 +369,7 @@ function marquee(node, speed) {
 
 
 <section class="right">
-  <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} hidden={mouse.position.x > innerWidth/2} alt="A beautiful landscape"/>
+  <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} hidden={mouse.position.x > innerWidth/2 || innerWidth < 900} alt="A beautiful landscape"/>
   <div class="book">
     <ProductCard product={data.product}/>
   </div>
@@ -383,6 +383,12 @@ function marquee(node, speed) {
 }
 span {
   display: inline-block;
+}
+@media screen and (max-width: 900px) {
+  :global(.btn.hero) {
+    position: relative;
+    top: unset;
+  }
 }
 
 /* Times */
@@ -427,10 +433,6 @@ span {
   .times div:last-of-type {
     top: calc(100dvh - 1.2*2.5rem - .777rem - var(--gutter)*1);
   }
-  /* .times div:last-child {
-    position: absolute;
-    margin-top: 10rem;
-  } */
 }
 
 /* Marquee */
@@ -453,6 +455,20 @@ span {
 .marquee p {
   width: max-content;
   display: inline-block;
+  overflow: hidden;
+}
+@media screen and (max-width: 900px) {
+  .marquee {
+    position: sticky;
+    top: calc(100vh - 1.2*2.9rem);
+    top: calc(100dvh - 1.2*2.9rem);
+    padding: .3em 0;
+    overflow: hidden;
+    z-index: 4;
+    white-space: nowrap;
+    display: flex;
+    width: 100vw;
+  }
 }
 
 /* Left */
@@ -613,14 +629,24 @@ h2 {
     grid-column: 1 / span 12;
     grid-row: 2;
   }
+  .vertical {
+    height: calc(100vh - 1.2*2.5rem);
+    height: calc(100svh - 1.2*2.5rem);
+    min-height: 700px;
+    position: relative;
+  }
   .vertical.hero {
     margin-top: calc((-.777rem - var(--gutter)*1) - 1.2rem);
     height: 30vh;
-    height: 30dvh;
+    height: 30svh;
     min-height: unset;
+    gap: var(--gutter);
+    padding-bottom: calc(var(--gutter)*3);
   }
   .vertical.hero .top-credits {
-    margin-top: 20vh;
+    position: relative;
+    margin-top: 15vh;
+    margin-top: 15svh;
   }
   h2 {
     position: fixed;
@@ -667,7 +693,7 @@ section.right {
     grid-column: 1 / span 12;
     position: relative;
     height: 80vh;
-    height: 80dvh;
+    height: 80svh;
   }
 }
 </style>

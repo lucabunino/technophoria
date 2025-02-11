@@ -57,6 +57,7 @@ html {
   font-size: clamp(10px, calc(3px + 1vw), 18px);
   line-height: 1.1;
   letter-spacing: .02em;
+  overflow-x: hidden;
 }
 body {
   overscroll-behavior: contain;

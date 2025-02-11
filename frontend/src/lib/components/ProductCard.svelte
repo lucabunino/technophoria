@@ -3,6 +3,7 @@ import { formatPrice } from '$lib/utils/format';
 import Media from '$lib/components/Media.svelte';
 
 let mouse = getPosition()
+let innerWidth = $state()
 let domLoaded = $state(false)
 import { getPosition } from "$lib/utils/mouse.svelte.js";
 
@@ -64,12 +65,12 @@ $effect(() => {
 })
 </script>
 
-<svelte:window onmousemove={(e) => handleMouseMove(e)}></svelte:window>
+<svelte:window bind:innerWidth onmousemove={(e) => handleMouseMove(e)}></svelte:window>
 
 <div class="card-parent-container">
 	<a class="bookCover" href="/products/{product.handle}">
 		{#if product.images}
-			<Media low={product.images[0].src} high={product.images[0].src} contain={true} blur={3} hidden={mouse.position.x < innerWidth/2} alt={product.images[0].alt}/>
+			<Media low={product.images[0].src} high={product.images[0].src} contain={true} blur={3} hidden={mouse.position.x < innerWidth/2 && innerWidth > 900} alt={product.images[0].alt}/>
 		{:else}
 			<img src="/images/placeholder-big.png" alt="Product thumbnail placeholder" />
 		{/if}
@@ -155,4 +156,13 @@ $effect(() => {
 		justify-content: center;
 		text-align: center;
 	}
+
+@media screen and (max-width: 900px) {
+	.bookCover {
+    width: 75%;
+    height: auto;
+		margin-top: 10%;
+    margin-bottom: 10%;
+  }
+}
 </style>
