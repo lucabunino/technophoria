@@ -64,6 +64,7 @@
 	box-sizing: border-box;
 	height: 100vh;
 	width: 33vw;
+	max-width: 400px;
 	position: fixed;
 	top: 0;
 	transition: var(--transition);
