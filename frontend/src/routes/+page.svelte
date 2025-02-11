@@ -388,8 +388,8 @@ span {
 /* Times */
 .times-container {
   position: sticky;
-  /* top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*1); */
-  top: calc(var(--vh) - 1.2*2.5rem - .777rem - var(--gutter)*1);
+  top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+  top: calc(100dvh - 1.2*2.5rem - .777rem - var(--gutter)*1);
   z-index: 3;
   margin-bottom: calc(1.2*2.5rem);
   mix-blend-mode: difference;
