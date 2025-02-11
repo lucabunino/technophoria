@@ -35,6 +35,7 @@ $effect(() => {
 
 let cartId = $state();
 let cartUrl = $state();
+let innerHeight = $state();
 
 onMount(async () => {
   if (browser) {
@@ -86,29 +87,6 @@ function toggleCredits() {
     });
   }, 200);
 }
-
-// Marquee
-function marquee(node, speed) {
-  let scrollAmount = 0;
-  let frame;
-
-  function step() {
-    scrollAmount -= speed; // Adjust speed here
-    if (scrollAmount <= -node.firstElementChild.offsetWidth) {
-      scrollAmount = 0; // Reset when fully scrolled
-    }
-    node.style.transform = `translateX(${scrollAmount}px)`;
-    frame = requestAnimationFrame(step);
-  }
-
-  step();
-
-  return {
-    destroy() {
-      cancelAnimationFrame(frame);
-    }
-  };
-}
 </script>
   
 <svelte:head>
@@ -122,9 +100,11 @@ function marquee(node, speed) {
   <meta property="og:url" content={$page.url}>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Technophoria">
+  <link rel="preconnect" href="https://cdn.shopify.com">
+  <link rel="preconnect" href="https://technophoria-felicity-ingram.myshopify.com">
 </svelte:head>
 
-<svelte:window bind:innerWidth onkeyup={handleKey}></svelte:window>
+<svelte:window bind:innerWidth bind:innerHeight onkeyup={handleKey}></svelte:window>
 
 {#if viewGrid}
 <div id="layout"
@@ -138,7 +118,7 @@ function marquee(node, speed) {
 {#if domLoaded}
 <header>
   <nav>
-    <ul class="menu uppercase europa-24">
+    <ul class="menu uppercase europa-24 mobile-europa-24">
       {#if $page.url.pathname !== "/"}<li class="menu-item" class:white={$page.url.pathname !== "/"}><a href="/">Home</a></li>{/if}
       {#if $page.url.pathname === "/"}<li class="mobile-only menu-item"><a href="/products/technophoria-by-felicity-ingram">Shop</a></li>{/if}
       <li class="menu-item cart" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</button></li>
@@ -214,6 +194,7 @@ main {
 @media screen and (max-width: 900px) {
   header {
     top: var(--gutter);
+    margin-top: var(--gutter);
   }
   .menu {
     justify-content: space-between;
@@ -224,24 +205,6 @@ main {
   header {
     mix-blend-mode: difference;
   }
-}
-
-/* Marquee */
-.marquee {
-  position: fixed;
-  top: calc(100vh - 1.2*2.5rem);
-  top: calc(100svh - 1.2*2.5rem);
-  background-color: var(--black);
-  padding: .1em 0;
-  overflow: hidden;
-  z-index: 4;
-  overflow: hidden;
-  white-space: nowrap;
-  display: flex;
-}
-.marquee p {
-  width: max-content;
-  display: inline-block;
 }
 
 /* Footer */

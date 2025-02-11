@@ -137,7 +137,7 @@ function marquee(node, speed) {
     <!-- <a class="btn hero" class:hidden={!domLoaded} href="/products/{data.product.handle}">Preorder now</a> -->
   </div>
 
-  <div class="block auto horizontal-big quote-img bottom europa-95">
+  <div class="block auto horizontal-big quote-img bottom europa-95 mobile-europa-48">
     <Media low="/img/horizontal-1-low.webp" high="/img/horizontal-1-2560w.webp" cover={true} alt="A beautiful landscape"/>
     <p style="transform: rotate(1deg) translateY(-5%);"><span>‘Rave culture</span> <span>embodies</span> <span>freedom, diversity</span> <span>and creativity.’</span></p>
   </div>
@@ -157,7 +157,7 @@ function marquee(node, speed) {
   </div>
 
   <div class="block auto">
-    <Media video="/video/footage-1.mp4" high="/video/footage-1-poster-2560w.webp" alt="A beautiful landscape"/>
+    <Media video="/video/footage-1.mp4" high="/video/footage-1-poster.webp" alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
@@ -388,8 +388,8 @@ span {
 /* Times */
 .times-container {
   position: sticky;
-  top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*1);
-  top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+  /* top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*1); */
+  top: calc(var(--vh) - 1.2*2.5rem - .777rem - var(--gutter)*1);
   z-index: 3;
   margin-bottom: calc(1.2*2.5rem);
   mix-blend-mode: difference;
@@ -422,9 +422,10 @@ span {
   }
   .times div:first-of-type {
     top: 0;
+    margin-top: calc(var(--gutter)/2);
   }
   .times div:last-of-type {
-    top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+    top: calc(100dvh - 1.2*2.5rem - .777rem - var(--gutter)*1);
   }
   /* .times div:last-child {
     position: absolute;
@@ -436,7 +437,8 @@ span {
 .marquee {
   position: sticky;
   top: calc(100vh - 1.2*2.5rem);
-  top: calc(100svh - 1.2*2.5rem);
+  top: calc(100dvh - 1.2*2.5rem);
+  will-change: transform;
   background-color: var(--black);
   padding: .1em 0;
   overflow: hidden;
@@ -471,7 +473,7 @@ section.right,
 }
 .vertical {
   height: calc(100vh - 1.2*2.5rem);
-  height: calc(100svh - 1.2*2.5rem);
+  height: calc(100dvh - 1.2*2.5rem);
   min-height: 700px;
   position: relative;
 }
@@ -612,7 +614,13 @@ h2 {
     grid-row: 2;
   }
   .vertical.hero {
-    margin-top: 0;
+    margin-top: calc((-.777rem - var(--gutter)*1) - 1.2rem);
+    height: 30vh;
+    height: 30dvh;
+    min-height: unset;
+  }
+  .vertical.hero .top-credits {
+    margin-top: 20vh;
   }
   h2 {
     position: fixed;
@@ -621,7 +629,7 @@ h2 {
     width: 100%;
     color: var(--black);
     top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*1);
-    top: calc(100svh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+    top: calc(100dvh - 1.2*2.5rem - .777rem - var(--gutter)*1);
     transform: translateY(-100%);
     z-index: 3;
   }
@@ -634,7 +642,7 @@ h2 {
 section.right {
   grid-column: 7 / span 6;
   height: calc(100vh - 1.2*2.5rem);
-  height: calc(100svh - 1.2*2.5rem);
+  height: calc(100dvh - 1.2*2.5rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -659,7 +667,7 @@ section.right {
     grid-column: 1 / span 12;
     position: relative;
     height: 80vh;
-    height: 80svh;
+    height: 80dvh;
   }
 }
 </style>

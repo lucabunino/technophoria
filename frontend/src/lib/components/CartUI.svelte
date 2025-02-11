@@ -32,7 +32,7 @@
 
 <svelte:window onclickcapture={handleClick} />
 
-<div style:--right={right} class="cart-container europa-24" bind:this={element}>
+<div style:--right={right} class="cart-container europa-24 mobile-europa-24" bind:this={element}>
 	<div class="cart-header uppercase">
 		{#if cart.items.length === 0}
 		<p>Cart is empty</p>
@@ -116,6 +116,9 @@
 @media screen and (max-width: 900px) {
   .cart-container {
 		width: 85vw;
+	}
+	.cart-header {
+		margin-top: calc(var(--gutter)*2);
 	}
 }
 @media (max-width: 440px) {
