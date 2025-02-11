@@ -490,7 +490,7 @@ section.right,
 .vertical {
   height: calc(100vh - 1.2*2.5rem);
   height: calc(100dvh - 1.2*2.5rem);
-  min-height: 700px;
+  min-height: 600px;
   position: relative;
 }
 .vertical.hero {
