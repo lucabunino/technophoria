@@ -122,7 +122,7 @@ function marquee(node, speed) {
   </div>
     
   <div class="block vertical hero">
-    <Media low="/img/vertical-1-low.webp" high="/img/vertical-1.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-1-low.webp" high="/img/vertical-1-2560w.webp" cover={true} alt="A beautiful landscape"/>
     <ul class="top-credits europa-22">
       <li>Photographer<br><a class="europa-28 uppercase" href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></li>
       <li>Casting<br><a class="europa-28 uppercase" href="https://www.instagram.com/emmamatell" target="_blank" rel="noopener noreferrer">Emma Matell</a></li>
@@ -138,16 +138,16 @@ function marquee(node, speed) {
   </div>
 
   <div class="block auto horizontal-big quote-img bottom europa-95">
-    <Media low="/img/horizontal-1-low.webp" high="/img/horizontal-1.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/horizontal-1-low.webp" high="/img/horizontal-1-2560w.webp" cover={true} alt="A beautiful landscape"/>
     <p style="transform: rotate(1deg) translateY(-5%);"><span>‘Rave culture</span> <span>embodies</span> <span>freedom, diversity</span> <span>and creativity.’</span></p>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-17-low.webp" high="/img/double-17.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-17-low.webp" high="/img/double-17-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-22-low.webp" high="/img/double-22.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-22-low.webp" high="/img/double-22-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
@@ -157,78 +157,78 @@ function marquee(node, speed) {
   </div>
 
   <div class="block auto">
-    <Media video="/video/footage-1.mp4" high="/video/footage-1-poster.webp" alt="A beautiful landscape"/>
+    <Media video="/video/footage-1.mp4" high="/video/footage-1-poster-2560w.webp" alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-19-low.webp" high="/img/double-19.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-19-low.webp" high="/img/double-19-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-20-low.webp" high="/img/double-20.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-20-low.webp" high="/img/double-20-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-6-low.webp" high="/img/vertical-6.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-6-low.webp" high="/img/vertical-6-2560w.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-13-low.webp" high="/img/double-13.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-13-low.webp" high="/img/double-13-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-1-low.webp" high="/img/double-1.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-1-low.webp" high="/img/double-1-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-5-low.webp" high="/img/vertical-5.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-5-low.webp" high="/img/vertical-5-2560w.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-4-low.webp" high="/img/double-4.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-4-low.webp" high="/img/double-4-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-16-low.webp" high="/img/double-16.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-16-low.webp" high="/img/double-16-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
   <div class="block auto quote-img bottom europa-75">
-    <Media video="/video/footage-3.mp4" high="/video/footage-3-poster.webp"  alt="A beautiful landscape"/>
+    <Media video="/video/footage-3.mp4" high="/video/footage-3-poster-2560w.webp"  alt="A beautiful landscape"/>
     <p><span>An ode to the power</span> <span>of music and the spaces</span> <span>it creates’</span></p>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-5-low.webp" high="/img/double-5.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-5-low.webp" high="/img/double-5-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-23-low.webp" high="/img/double-23.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-23-low.webp" high="/img/double-23-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
   
   <div class="block auto double">
     <div>
-      <Media low="/img/double-2-low.webp" high="/img/double-2.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-2-low.webp" high="/img/double-2-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-24-low.webp" high="/img/double-24.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-24-low.webp" high="/img/double-24-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-8-low.webp" high="/img/vertical-8.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-8-low.webp" high="/img/vertical-8-2560w.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto horizontal-big quote-img europa-64">
-    <Media low="/img/horizontal-2-low.webp" high="/img/horizontal-2.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/horizontal-2-low.webp" high="/img/horizontal-2-2560w.webp" cover={true} alt="A beautiful landscape"/>
     <p>‘Technophoria is an ode to these moments of transcendence, where the collective energy of a crowd becomes something greater than the sum of its parts.’</p>
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-7-low.webp" high="/img/vertical-7.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-7-low.webp" high="/img/vertical-7-2560w.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block quote europa-36">
@@ -238,49 +238,49 @@ function marquee(node, speed) {
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-10-low.webp" high="/img/double-10.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-10-low.webp" high="/img/double-10-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-21-low.webp" high="/img/double-21.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-21-low.webp" high="/img/double-21-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-2-low.webp" high="/img/vertical-2.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-2-low.webp" high="/img/vertical-2-2560w.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-9-low.webp" high="/img/double-9.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-9-low.webp" high="/img/double-9-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-7-low.webp" high="/img/double-7.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-7-low.webp" high="/img/double-7-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
   <div class="block auto">
-    <Media video="/video/footage-2.mp4" high="/video/footage-2-poster.webp"  alt="A beautiful landscape"/>
+    <Media video="/video/footage-2.mp4" high="/video/footage-2-poster-2560w.webp"  alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-12-low.webp" high="/img/double-12.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-12-low.webp" high="/img/double-12-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-6-low.webp" high="/img/double-6.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-6-low.webp" high="/img/double-6-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-9-low.webp" high="/img/vertical-9.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-9-low.webp" high="/img/vertical-9-2560w.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-3-low.webp" high="/img/double-3.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-3-low.webp" high="/img/double-3-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-8-low.webp" high="/img/double-8.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-8-low.webp" high="/img/double-8-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
@@ -290,28 +290,28 @@ function marquee(node, speed) {
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-3-low.webp" high="/img/vertical-3.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-3-low.webp" high="/img/vertical-3-2560w.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double">
     <div>
-      <Media low="/img/double-15-low.webp" high="/img/double-15.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-15-low.webp" high="/img/double-15-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-18-low.webp" high="/img/double-18.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-18-low.webp" high="/img/double-18-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-4-low.webp" high="/img/vertical-4.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-4-low.webp" high="/img/vertical-4-2560w.webp" cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto double launch">
     <div>
-      <Media low="/img/double-14-low.webp" high="/img/double-14.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-14-low.webp" high="/img/double-14-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-11-low.webp" high="/img/double-11.webp" alt="A beautiful landscape"/>
+      <Media low="/img/double-11-low.webp" high="/img/double-11-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div class="launch-info europa-30">
       <p class="europa-45 uppercase">Paris Launch Party</p>

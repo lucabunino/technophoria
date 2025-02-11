@@ -162,7 +162,7 @@ function marquee(node, speed) {
 <footer class="europa-10">
   <ul>
     <li><a href="" class="uppercase">Terms and condition</a></li>
-    <li><p>Felicity Ingram Rapideye, 79 Leonard Street, London.</p><p>EC2A 4QS <a href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">felicityingram.com</a></p></li>
+    <li><p>Felicity Ingram Rapideye, 79 Leonard Street, London</p><p>EC2A 4QS <a href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">felicityingram.com</a></p></li>
     <li><p>Date of Pubblication: XXX</p></li>
     <li><p>A editorial project by Felicity Ingram</p><p class="uppercase">First Edition © 2025</p></li>
   </ul>
@@ -190,6 +190,9 @@ header {
 }
 .menu-item {
   color: var(--black);
+}
+.menu-item button {
+  line-height: inherit;
 }
 .menu-item.white button,
 .menu-item.white a {
