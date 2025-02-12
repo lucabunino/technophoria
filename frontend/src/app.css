@@ -34,7 +34,8 @@
 
 /* Reset */
 *, *::before, *::after {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   -webkit-tap-highlight-color:transparent;
 }
 * {
@@ -58,9 +59,16 @@ html {
   line-height: 1.1;
   letter-spacing: .02em;
   overflow-x: hidden;
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 body {
-  overscroll-behavior: contain;
+  -ms-scroll-chaining: none;
+      overscroll-behavior: contain;
 }
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
@@ -82,6 +90,11 @@ input, button, textarea, select {
   isolation: isolate;
 }
 a:-webkit-any-link {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+a:-moz-any-link {
   color: inherit;
   cursor: pointer;
   text-decoration: none;
@@ -249,11 +262,27 @@ a.btn:hover,
 }
 
 @media screen and (max-width: 900px) {
+  .btn {
+    font-size: 1.5rem;
+    min-width: 150px;
+    text-align: center;
+  }
   .mobile-europa-48 {
     font-size: 4.8rem;
   }
+  .mobile-europa-32 {
+    font-size: 3.2rem;
+  }
   .mobile-europa-24 {
     font-size: 2.4rem;
+  }
+  .mobile-europa-18 {
+    font-size: 1.8rem;
+    letter-spacing: .04em;
+    line-height: 1;
+  }
+  .mobile-europa-10 {
+    font-size: 1rem;
   }
   .mobile-eurostile-7 {
     font-size: .7rem;
@@ -270,10 +299,14 @@ a.btn:hover,
 }
 .hidden {
   pointer-events: none;
+  z-index: -1;
   opacity: 0;
-  filter: blur(7vw) contrast(5);
+  -webkit-filter: blur(7vw) contrast(5);
+          filter: blur(7vw) contrast(5);
 }
 .transition {
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
   transition: var(--transition);
 }
 

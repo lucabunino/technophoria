@@ -112,19 +112,31 @@ $effect(() => {
 	.card-parent-container {
 		width: 100%;
 		height: 100%;
+		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-align: center;
+		    -ms-flex-align: center;
+		        align-items: center;
+		-webkit-box-pack: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
 	}
 	.bookCover {
     width: 65%;
     height: 65%;
-    object-fit: contain;
+    -o-object-fit: contain;
+       object-fit: contain;
 		margin-bottom: 10%;
   }
 	.price-buy-container {
-		justify-content: space-between;
+		-webkit-box-pack: justify;
+		    -ms-flex-pack: justify;
+		        justify-content: space-between;
 		width: 100%;
 		margin-top: 2rem;
 	}
@@ -138,7 +150,9 @@ $effect(() => {
 		max-height: 250px;
 		overflow: hidden;
 		background-color: var(--primary-color);
-		justify-content: center;
+		-webkit-box-pack: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
 		border: var(--primary-border);
 	}
 	img {
@@ -153,16 +167,23 @@ $effect(() => {
 		font-weight: bold;
 		font-size: 1.7rem;
 		padding: 0.1rem 0.6rem;
-		justify-content: center;
+		-webkit-box-pack: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
 		text-align: center;
 	}
 
 @media screen and (max-width: 900px) {
 	.bookCover {
     width: 75%;
-    height: auto;
-		margin-top: 10%;
+    height: 50%;
+		margin-top: 15%;
     margin-bottom: 10%;
+  }
+}
+@media screen and (max-width: 600px) {
+	.bookCover {
+    height: auto;
   }
 }
 </style>

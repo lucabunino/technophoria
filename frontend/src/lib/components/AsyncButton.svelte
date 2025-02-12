@@ -25,5 +25,6 @@ async function handleClick() {
 .fullWidth {
 	width: 100%;
 	text-align: center;
+	margin: auto;
 }
 </style>

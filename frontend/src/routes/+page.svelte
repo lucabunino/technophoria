@@ -12,8 +12,10 @@ const cart = getCartStore();
 
 
 let innerWidth = $state()
+let innerHeight = $state()
 let personHover = $state(false)
 let domLoaded = $state(false);
+let videoTapped = $state(false);
 
 let options = $state(data.product.options);
 let title = $state(data.product.title);
@@ -71,6 +73,7 @@ async function addToCartHandler() {
 
 function handleMouseMove(e) {
   mouse.position.x = e.clientX;
+  mouse.position.y = e.clientY;
 }
 // Marquee
 function marquee(node, speed) {
@@ -96,9 +99,9 @@ function marquee(node, speed) {
 }
 </script>
 
-<svelte:window bind:innerWidth onmousemove={(e) => handleMouseMove(e)}></svelte:window>
+<svelte:window bind:innerWidth bind:innerHeight onmousemove={(e) => handleMouseMove(e)}></svelte:window>
 
-<section class="left">
+<section class="left" ontouchend={() => {videoTapped = false}}>
   <div class="times-container">
     <div class="times uppercase eurostile-14 mobile-eurostile-7" class:loaded={domLoaded && !personHover}>
       <div>
@@ -220,7 +223,7 @@ function marquee(node, speed) {
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-8-low.webp" high="/img/vertical-8-2560w.webp" cover={true} alt="A beautiful landscape"/>
+    <Media low="/img/vertical-8-low.webp" high="/img/vertical-8-2560w.webp" originTop={true} cover={true} alt="A beautiful landscape"/>
   </div>
 
   <div class="block auto horizontal-big quote-img europa-64">
@@ -281,7 +284,7 @@ function marquee(node, speed) {
       <Media low="/img/double-3-low.webp" high="/img/double-3-2560w.webp" alt="A beautiful landscape"/>
     </div>
     <div>
-      <Media low="/img/double-8-low.webp" high="/img/double-8-2560w.webp" alt="A beautiful landscape" originTop={true}/>
+      <Media low="/img/double-8-low.webp" high="/img/double-8-2560w.webp" alt="A beautiful landscape"/>
     </div>
   </div>
 
@@ -370,7 +373,9 @@ function marquee(node, speed) {
 
 
 <section class="right">
-  <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} hidden={mouse.position.x > innerWidth/2 || innerWidth < 900} alt="A beautiful landscape"/>
+  <div onclick={() => {videoTapped = !videoTapped}}>
+    <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} hidden={mouse.position.x > innerWidth/2 && innerWidth > 900 || videoTapped && innerWidth <= 900} alt="A beautiful landscape"/>
+  </div>
   <div class="book">
     <ProductCard product={data.product}/>
   </div>
@@ -403,36 +408,59 @@ span {
 }
 .times {
   width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  filter: blur(100px);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-filter: blur(100px);
+          filter: blur(100px);
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
   transition: var(--transition);
+  -webkit-transition-property: -webkit-filter;
+  transition-property: -webkit-filter;
+  -o-transition-property: filter;
   transition-property: filter;
+  transition-property: filter, -webkit-filter;
 }
 .times.loaded {
-  filter: blur(0px);
+  -webkit-filter: blur(0px);
+          filter: blur(0px);
 }
 .times div {
   width: 50%;
   padding: calc(var(--gutter)/2) var(--gutter);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 @media screen and (max-width: 900px) {
   .times-container {
     position: fixed;
     top: 0;
   }
+  .times {
+    display: contents;
+  }
   .times div {
-    position: absolute;
-    width: 100%;
+    position: fixed;
+    width: 100vw;
+    z-index: 4;
   }
   .times div:first-of-type {
     top: 0;
     margin-top: calc(var(--gutter)/2);
   }
   .times div:last-of-type {
-    top: calc(100dvh - 1.2*2.5rem - .777rem - var(--gutter)*1);
+    position: fixed;
+    bottom: calc(1.2*3.3rem);
+    padding-bottom: calc(var(--gutter)/1.5);
+    top: unset;
   }
 }
 
@@ -443,30 +471,44 @@ span {
   top: calc(100dvh - 1.2*2.5rem);
   will-change: transform;
   background-color: var(--black);
-  padding: .1em 0;
   overflow: hidden;
   z-index: 4;
   white-space: nowrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100vw;
+  padding: .1em 0;
 }
 .marquee div {
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .marquee p {
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
   display: inline-block;
   overflow: hidden;
 }
 @media screen and (max-width: 900px) {
   .marquee {
-    position: sticky;
-    top: calc(100vh - 1.2*2.9rem);
-    top: calc(100dvh - 1.2*2.9rem);
+    position: fixed;
+    bottom: 0;
+    top: unset;
     padding: .3em 0;
     overflow: hidden;
     z-index: 4;
     white-space: nowrap;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100vw;
   }
@@ -474,10 +516,14 @@ span {
 
 /* Left */
 section.left {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 6;
   grid-column: 1 / span 6;
 }
 @media screen and (max-width: 900px) {
   section.left {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 12;
     grid-column: 1 / span 12;
   }
 }
@@ -489,25 +535,38 @@ section.right,
   position: relative;
 }
 .vertical {
-  height: calc(100vh - 1.2*2.5rem);
-  height: calc(100dvh - 1.2*2.5rem);
+  height: calc(100vh - 1.2*2.4rem);
+  height: calc(100dvh - 1.2*2.4rem);
   min-height: 600px;
   position: relative;
 }
 .vertical.hero {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: var(--black);
   gap: calc(var(--gutter)*3);
   margin-top: calc((-.777rem - var(--gutter)*1) - 1.2*5rem);
 }
 .vertical.hero .top-credits {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
   padding: calc(var(--gutter)/2) var(--gutter);
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   gap: calc(var(--gutter)*2);
   list-style: none;
   top: 0;
@@ -525,6 +584,8 @@ h2 {
 }
 .double {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 .double > div:not(.launch-info) {
@@ -552,14 +613,18 @@ h2 {
   position: absolute;
   top: 0;
   padding: calc(var(--gutter)/2) var(--gutter) var(--gutter);
-  hyphens: auto;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
 }
 .quote-img.bottom p {
   top: unset;
   bottom: 0;
 }
 .people .grid {
+  -ms-grid-columns: (1fr)[5];
   grid-template-columns: repeat(5, 1fr);
+  display: -ms-grid;
   display: grid;
   padding: calc(var(--gutter)*7) calc(var(--gutter)*4) calc(var(--gutter)*4);
 }
@@ -582,6 +647,8 @@ h2 {
   bottom: var(--gutter);
   color: var(--white);
   z-index: 3;
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
   transition: var(--transition);
 }
 .launch {
@@ -591,16 +658,27 @@ h2 {
   align-items: center; */
 }
 .launch-info {
-  transform: rotate(1deg);
+  -webkit-transform: rotate(1deg);
+      -ms-transform: rotate(1deg);
+          transform: rotate(1deg);
   opacity: .95;
   padding: 0 calc(var(--gutter)*6);
   text-align: center;
   position: absolute;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .launch-info p {
   margin-top: .6em;
@@ -620,14 +698,17 @@ h2 {
 }
 
 @media screen and (max-width: 1400px) {
-  .people .grid { grid-template-columns: repeat(4, 1fr); }
+  .people .grid { -ms-grid-columns: (1fr)[4]; grid-template-columns: repeat(4, 1fr); }
 }
 @media screen and (max-width: 1300px) {
-  .people .grid { grid-template-columns: repeat(3, 1fr); }
+  .people .grid { -ms-grid-columns: (1fr)[3]; grid-template-columns: repeat(3, 1fr); }
 }
 @media screen and (max-width: 900px) {
   section.left {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 12;
     grid-column: 1 / span 12;
+    -ms-grid-row: 2;
     grid-row: 2;
   }
   .vertical {
@@ -637,42 +718,61 @@ h2 {
     position: relative;
   }
   .vertical.hero {
-    margin-top: calc((-.777rem - var(--gutter)*1) - 1.2rem);
-    height: 30vh;
-    height: 30svh;
+    margin-top: 0;
+    height: 35vh;
+    height: 35svh;
     min-height: unset;
     gap: var(--gutter);
-    padding-bottom: calc(var(--gutter)*3);
+    padding: calc(var(--gutter)*1) 0;
+    display: -ms-grid;
+    display: grid;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .vertical.hero>*:nth-child(2) {
+    -ms-grid-row: 2;
+    grid-row: 2;
+  }
+  .vertical.hero>*:nth-child(3) {
+    -ms-grid-row: 1;
+    grid-row: 1;
+  }
+  :global(.vertical.hero>.btn.hero) {
+    -ms-grid-row: 3;
+    grid-row: 3;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: auto;
   }
   .vertical.hero .top-credits {
     position: relative;
-    margin-top: 15vh;
-    margin-top: 15svh;
   }
   h2 {
-    position: fixed;
-    text-align: center;
-    display: block;
-    width: 100%;
-    color: var(--black);
-    top: calc(100vh - 1.2*2.5rem - .777rem - var(--gutter)*1);
-    top: calc(100dvh - 1.2*2.5rem - .777rem - var(--gutter)*1);
-    transform: translateY(-100%);
-    z-index: 3;
+    position: relative;
   }
   .credits {
-    padding: var(--gutter) var(--gutter) calc(1.2*2.5rem + .777rem + var(--gutter)*5);
+    padding: var(--gutter) var(--gutter) var(--gutter);
   }
 }
 
 /* Right */
 section.right {
+  -ms-grid-column: 7;
+  -ms-grid-column-span: 6;
   grid-column: 7 / span 6;
   height: calc(100vh - 1.2*2.5rem);
   height: calc(100dvh - 1.2*2.5rem);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: sticky;
   top: 0;
 }
@@ -682,19 +782,35 @@ section.right {
   top: 0;
   width: 100%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   gap: calc(var(--gutter)*3);
   z-index: -2;
 }
 @media screen and (max-width: 900px) {
   section.right {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 12;
     grid-column: 1 / span 12;
-    position: relative;
-    height: 80vh;
-    height: 80svh;
+    height: 85vh;
+    display: block;
+    top: unset;
+  }
+}
+@media screen and (max-width: 600px) {
+  section.right {
+    height: 70vh;
   }
 }
 </style>

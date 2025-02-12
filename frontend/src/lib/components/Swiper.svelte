@@ -54,9 +54,15 @@ $effect(() => {
 }
 .swiper swiper-slide {
 	overflow: hidden;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
 	background-color: var(--white);
 }
 .swiper .media-container {
@@ -70,9 +76,15 @@ $effect(() => {
 }
 .thumbs swiper-slide {
 	overflow: hidden;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
 	aspect-ratio: 1;
 	background-color: var(--white);
 	cursor: pointer;

@@ -139,11 +139,11 @@ function toggleCredits() {
 </div>
 {/if} -->
 
-<footer class="europa-10">
+<footer class="europa-10 mobile-europa-10">
   <ul>
-    <li><a href="" class="uppercase">Terms and condition</a></li>
+    <li><a href="/terms" class="uppercase">Terms and condition</a></li>
     <li><p>Felicity Ingram Rapideye, 79 Leonard Street, London</p><p>EC2A 4QS <a href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">felicityingram.com</a></p></li>
-    <li><p>Date of Pubblication: XXX</p></li>
+    <li><p>Date of Pubblication: March 2025</p></li>
     <li><p>A editorial project by Felicity Ingram</p><p class="uppercase">First Edition © 2025</p></li>
   </ul>
 </footer>
@@ -159,13 +159,20 @@ header {
   left: 0;
   z-index: 3;
   margin: calc(var(--gutter)/1.5) var(--gutter);
+  width: 100%;
+  width: -moz-available;
   width: -webkit-fill-available;
+  width: stretch;
 }
 .menu {
   list-style: none;
   padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   gap: calc(var(--gutter)*3);
 }
 .menu-item {
@@ -183,10 +190,14 @@ header {
   color: var(--gray);
 }
 .menu-item.cart button {
+  -webkit-transition: none;
+  -o-transition: none;
   transition: none;
 }
 main {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: (1fr)[12];
   grid-template-columns: repeat(12, 1fr);
   width: 100%;
 }
@@ -197,7 +208,9 @@ main {
     margin-top: var(--gutter);
   }
   .menu {
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
   .menu-item {
     color: var(--white);
@@ -216,15 +229,21 @@ footer {
 footer ul {
   list-style: none;
   padding: var(--gutter);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   border-top: solid 1px var(--white);
 }
 
 @media screen and (max-width: 900px) {
   footer ul {
+    display: -ms-grid;
     display: grid;
     gap: var(--gutter);
+    -ms-grid-columns: 1fr var(--gutter) 1fr;
     grid-template-columns: repeat(2, 1fr);
   }
 }

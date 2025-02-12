@@ -95,8 +95,12 @@
   .media {
     width: 100%;
     height: 100%;
+    -webkit-transition: var(--transition);
+    -o-transition: var(--transition);
     transition: var(--transition);
-    transform: scale(1.01);
+    -webkit-transform: scale(1.01) translate3d(0, 0, 0);
+        -ms-transform: scale(1.01) translate3d(0, 0, 0);
+            transform: scale(1.01) translate3d(0, 0, 0);
   }
 
   .media.cover {
@@ -104,18 +108,24 @@
     left: 0;
     top: 0;
     z-index: -1;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 
   .media.contain {
-    object-fit: contain;
+    -o-object-fit: contain;
+       object-fit: contain;
   }
 
   .blurred {
-    filter: blur(var(--blur)) contrast(5);
+    -webkit-filter: blur(var(--blur)) contrast(5);
+            filter: blur(var(--blur)) contrast(5);
   }
   .originTop {
-    transform-origin: top;
-    object-position: top;
+    -webkit-transform-origin: top;
+        -ms-transform-origin: top;
+            transform-origin: top;
+    -o-object-position: top;
+       object-position: top;
   }
 </style>
