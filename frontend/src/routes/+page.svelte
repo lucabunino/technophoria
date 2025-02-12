@@ -62,9 +62,7 @@ async function addToCartHandler() {
 		}
 
 		const cartItems = await addToCart(quantity, cart.id, variants, selectedOptions, optionNames);
-		cart.setItems(cartItems);
-    console.log(cart.items);
-    
+		cart.setItems(cartItems);    
     goto(`/products/${data.product.handle}`)
 	} catch (error) {
 		errorMessage = error.message;
@@ -366,7 +364,7 @@ function marquee(node, speed) {
     <p>Casting Assistant <a href="https://www.instagram.com/oliwiajancerowicz" target="_blank" rel="noopener noreferrer">Oliwia Jancerowicz</a></p>
     <p>Local Production (Seoul) <a href="https://www.instagram.com/m1m1y" target="_blank" rel="noopener noreferrer">Mi Kim</a></p>
     <p>Local Production (Tokyo) <a href="https://www.instagram.com/____a_k_o____" target="_blank" rel="noopener noreferrer">Ako Suzuki</a></p>
-    <p>Digital Art Director <a href="https://www.linkedin.com/in/virgilia-ramella-5714a7130/" target="_blank" rel="noopener noreferrer">Virgilia Ramella</a></p>
+    <p>Digital Art Director <a href="https://www.instagram.com/virgiliaramella" target="_blank" rel="noopener noreferrer">Virgilia Ramella</a></p>
     <p>Web Design <a href="https://liver.studio/" target="_blank" rel="noopener noreferrer">LIVER Studio</a><span>{@html ' + '}</span><a href="https://www.lucabunino.com" target="_blank" rel="noopener noreferrer">Luca Bunino</a></p>
   </div>
 </section>
