@@ -111,14 +111,14 @@ function toggleCredits() {
 </div>
 {/if}
 
-<!-- {#if domLoaded && $page.url.hostname !== 'www.technophoria.shop'} -->
-{#if domLoaded}
+{#if domLoaded && $page.url.hostname !== 'www.technophoria.shop'}
+<!-- {#if domLoaded} -->
 <header>
   <nav>
     <ul class="menu uppercase europa-24 mobile-europa-24">
       {#if $page.url.pathname !== "/"}<li class="menu-item" class:white={$page.url.pathname !== "/"}><a href="/">Home</a></li>{/if}
-      {#if $page.url.pathname === "/"}<li class="mobile-only menu-item hidden"><a href="/products/technophoria-by-felicity-ingram">Shop</a></li>{/if}
-      <li class="menu-item cart hidden" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</button></li>
+      {#if $page.url.pathname === "/"}<li class="mobile-only menu-item"><a href="/products/technophoria-by-felicity-ingram">Shop</a></li>{/if}
+      <li class="menu-item cart" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</button></li>
     </ul>
   </nav>
 </header>
@@ -128,13 +128,6 @@ function toggleCredits() {
 <main class:loaded={domLoaded}>
   {@render children()}
 </main>
-
-<!-- {#if $page.url.pathname === "/"}
-<div class="marquee europa-45" use:marquee={1}>
-  <p>OOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France //{@html ' B'}</p>
-  <p>OOK RELEASE AT PARIS LAUNCH PARTY // 6th MARCH 2025 - Oddity Paris - 27 Rue Notre Dame de Nazareth, Paris 75003, France //{@html ' B'}</p>
-</div>
-{/if} -->
 
 <footer class="europa-10 mobile-europa-10">
   <ul>

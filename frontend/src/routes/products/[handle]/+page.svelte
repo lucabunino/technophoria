@@ -70,7 +70,7 @@ async function decrementQuantity(item) {
 }
 </script>
 
-<!-- <svelte:head>
+<svelte:head>
 	<title>{product.title}</title>
 	{#if product.description}
 		<meta name="description" content={product.description} />
@@ -141,7 +141,7 @@ async function decrementQuantity(item) {
 			{@html product.descriptionHtml}
 		{/if}
 	</div>
-</div> -->
+</div>
 
 <style>
 :global(.body) {

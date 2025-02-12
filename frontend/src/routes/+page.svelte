@@ -130,12 +130,12 @@ function marquee(node, speed) {
       <li>Creative Direction<br><a class="europa-28 uppercase" href="https://www.sarah-bassett.com/" target="_blank" rel="noopener noreferrer">Sarah Bassett</a></li>
     </ul>
     <h2 class="uppercase europa-66">“Technophoria”<br>By Felicity Ingram<br><span class="lowercase">6th</span> March 2025</h2>
-    <!-- <AsyncButton
+    <AsyncButton
 		classes="{domLoaded ? 'btn hero' : 'btn hero hidden'}"
 		handler={addToCartHandler}
 		label="Preorder now"
-		/> -->
-    <span class={domLoaded ? 'btn hero soon' : 'btn hero soon hidden'}>Preorder soon</span>
+		/>
+    <!-- <span class={domLoaded ? 'btn hero soon' : 'btn hero soon hidden'}>Preorder soon</span> -->
     <!-- <a class="btn hero" class:hidden={!domLoaded} href="/products/{data.product.handle}">Preorder now</a> -->
   </div>
 
@@ -323,12 +323,6 @@ function marquee(node, speed) {
     </div>
   </div>
 
-
-
-
-
-
-
   <!-- <div class="block people">
     <div class="grid">
       {#each people as person, i}
@@ -351,11 +345,6 @@ function marquee(node, speed) {
     </div>
   </div> -->
 
-  <!-- <div class="block quote europa-43">
-    <p>‘That’s what i like about it, being free. I think it’s the most important thing to me. I like going alone, meeting people or not. It makes me feel better.’</p>
-    <p class="author times-27 right">( Val, Marseille )</p>
-  </div> -->
-
   <div class="block credits europa-43">
     <p>Photographer <a href="https://www.felicityingram.com/" target="_blank" rel="noopener noreferrer">Felicity Ingram</a></p>
     <p>Casting Director <a href="https://www.instagram.com/emmamatell" target="_blank" rel="noopener noreferrer">Emma Mattell</a></p>
@@ -372,14 +361,14 @@ function marquee(node, speed) {
 
 
 <section class="right">
-  <!-- <div onclick={() => {videoTapped = !videoTapped}}> -->
-  <div>
-    <!-- <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} hidden={mouse.position.x > innerWidth/2 && innerWidth > 900 || videoTapped && innerWidth <= 900} alt="Technophoria by Felicity Ingram"/> -->
-    <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} alt="Technophoria by Felicity Ingram"/>
+  <div onclick={() => {videoTapped = !videoTapped}}>
+  <!-- <div> -->
+    <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} hidden={mouse.position.x > innerWidth/2 && innerWidth > 900 || videoTapped && innerWidth <= 900} alt="Technophoria by Felicity Ingram"/>
+    <!-- <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} alt="Technophoria by Felicity Ingram"/> -->
   </div>
-  <!-- <div class="book">
+  <div class="book">
     <ProductCard product={data.product}/>
-  </div> -->
+  </div>
 </section>
 
 <style>
