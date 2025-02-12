@@ -84,7 +84,7 @@ async function decrementQuantity(item) {
 	{/if}
 </svelte:head>
 <div class="product-images desktop-only">
-	<!-- <Swiper images={product.images} /> -->
+	<Swiper images={product.images} />
 </div>
 
 <div class="product-info mobile-europa-18">
