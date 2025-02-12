@@ -293,7 +293,7 @@ function marquee(node, speed) {
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-3-low.webp" high="/img/vertical-3-2560w.webp" cover={true} alt="Technophoria_Seoul"/>
+    <Media low="/img/vertical-3-low.webp" high="/img/vertical-3-2560w.webp" originTop={true} cover={true} alt="Technophoria_Seoul"/>
   </div>
 
   <div class="block auto double">
