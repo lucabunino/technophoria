@@ -116,7 +116,7 @@ function toggleCredits() {
   <nav>
     <ul class="menu uppercase europa-24 mobile-europa-24">
       {#if $page.url.pathname !== "/"}<li class="menu-item" class:white={$page.url.pathname !== "/"}><a href="/">Home</a></li>{/if}
-      {#if $page.url.pathname === "/"}<li class="mobile-only menu-item"><a href="/products/technophoria-by-felicity-ingram">Shop</a></li>{/if}
+      {#if $page.url.pathname === "/"}<li class="mobile-only menu-item hidden"><a href="/products/technophoria-by-felicity-ingram">Shop</a></li>{/if}
       <li class="menu-item cart hidden" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</button></li>
     </ul>
   </nav>
