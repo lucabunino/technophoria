@@ -130,11 +130,12 @@ function marquee(node, speed) {
       <li>Creative Direction<br><a class="europa-28 uppercase" href="https://www.sarah-bassett.com/" target="_blank" rel="noopener noreferrer">Sarah Bassett</a></li>
     </ul>
     <h2 class="uppercase europa-66">“Technophoria”<br>By Felicity Ingram<br><span class="lowercase">6th</span> March 2025</h2>
-    <AsyncButton
+    <!-- <AsyncButton
 		classes="{domLoaded ? 'btn hero' : 'btn hero hidden'}"
 		handler={addToCartHandler}
 		label="Preorder now"
-		/>
+		/> -->
+    <span class={domLoaded ? 'btn hero soon' : 'btn hero soon hidden'}>Preorder soon</span>
     <!-- <a class="btn hero" class:hidden={!domLoaded} href="/products/{data.product.handle}">Preorder now</a> -->
   </div>
 
@@ -371,12 +372,14 @@ function marquee(node, speed) {
 
 
 <section class="right">
-  <div onclick={() => {videoTapped = !videoTapped}}>
-    <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} hidden={mouse.position.x > innerWidth/2 && innerWidth > 900 || videoTapped && innerWidth <= 900} alt="A beautiful landscape"/>
+  <!-- <div onclick={() => {videoTapped = !videoTapped}}> -->
+  <div>
+    <!-- <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} hidden={mouse.position.x > innerWidth/2 && innerWidth > 900 || videoTapped && innerWidth <= 900} alt="Technophoria by Felicity Ingram"/> -->
+    <Media cover={true} video="/video/book-1.mp4" high="/video/book-1-poster.webp" blur={3} alt="Technophoria by Felicity Ingram"/>
   </div>
-  <div class="book">
+  <!-- <div class="book">
     <ProductCard product={data.product}/>
-  </div>
+  </div> -->
 </section>
 
 <style>
@@ -384,6 +387,9 @@ function marquee(node, speed) {
 :global(.btn.hero) {
   position: absolute;
   top: 76vh;
+}
+:global(.btn.hero.soon) {
+  pointer-events: none;
 }
 span {
   display: inline-block;

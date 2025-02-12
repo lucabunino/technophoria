@@ -28,8 +28,6 @@ async function addToCartHandler() {
 		if (!variants?.length) {
 			throw new Error("No variants available for this product");
 		}
-
-		// Ensure selectedOptions is populated even if there's only one option
 		if (optionNames.length === 1) {
 			selectedOptions[optionNames[0]] = variants[0]?.title; // Assign default value
 		}
@@ -46,12 +44,9 @@ async function buyNowHandler() {
 		if (!variants?.length) {
 			throw new Error("No variants available for this product");
 		}
-
-		// Ensure selectedOptions is populated even if there's only one option
 		if (optionNames.length === 1) {
 			selectedOptions[optionNames[0]] = variants[0]?.title; // Assign default value
 		}
-
 		const cartItems = await addToCart(quantity, cart.id, variants, selectedOptions, optionNames);
 		cart.setItems(cartItems);
 		if (!cartItems) {
@@ -59,8 +54,6 @@ async function buyNowHandler() {
 		}
 
 		window.location.href = cart.checkoutUrl;
-		
-		// cart.setDialog(false);
 	} catch (error) {
 		errorMessage = error.message;
 	}
@@ -77,7 +70,7 @@ async function decrementQuantity(item) {
 }
 </script>
 
-<svelte:head>
+<!-- <svelte:head>
 	<title>{product.title}</title>
 	{#if product.description}
 		<meta name="description" content={product.description} />
@@ -92,7 +85,6 @@ async function decrementQuantity(item) {
 	<p class="europa-18 price mobile-europa-18">
 		{formatPrice(product.price.amount, product.price.currencyCode)}
 	</p>
-	<!-- <ProductOptions {product.options} bind:selectedOptions /> -->
 	<div class="btns">
 		<div class="btn product-counter europa-22 fullWidth desktop-only">
 			<button onclick={() => {decrementQuantity(quantity)}}>–</button>
@@ -149,7 +141,7 @@ async function decrementQuantity(item) {
 			{@html product.descriptionHtml}
 		{/if}
 	</div>
-</div>
+</div> -->
 
 <style>
 :global(.body) {

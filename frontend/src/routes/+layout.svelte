@@ -49,9 +49,7 @@ onMount(async () => {
       localStorage.setItem('cart_id', cartId);
       cart.setId(cartId)
     }
-    cart.setCheckoutUrl(response.cartCreate.cart.checkoutUrl);
-    console.log("CART: " + cart.checkoutUrl);
-    
+    cart.setCheckoutUrl(response.cartCreate.cart.checkoutUrl);    
   } else {
     const response = await getCart({ cartId: cartId });
     if (response.cart) {
@@ -78,9 +76,7 @@ function handleKey({key}) {if (key === 'G') {viewGrid = !viewGrid}}
 function toggleCredits() {
   creditsOpen = !creditsOpen;
   setTimeout(() => {
-    const pageHeight = document.body.scrollHeight
-    console.log(creditsHeight);
-    
+    const pageHeight = document.body.scrollHeight    
     window.scrollTo({
       top: pageHeight + creditsHeight,
       behavior: "smooth" // Smooth scrolling effect
@@ -121,7 +117,7 @@ function toggleCredits() {
     <ul class="menu uppercase europa-24 mobile-europa-24">
       {#if $page.url.pathname !== "/"}<li class="menu-item" class:white={$page.url.pathname !== "/"}><a href="/">Home</a></li>{/if}
       {#if $page.url.pathname === "/"}<li class="mobile-only menu-item"><a href="/products/technophoria-by-felicity-ingram">Shop</a></li>{/if}
-      <li class="menu-item cart" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</button></li>
+      <li class="menu-item cart hidden" class:white={mouse.position.x > innerWidth/2 || $page.url.pathname !== "/"}><button class="transition" onclick={() => { cart.setDialog(false); }}>Cart ({cart.items[0] ? cart.items[0].node.quantity : 0})</button></li>
     </ul>
   </nav>
 </header>
