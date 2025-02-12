@@ -129,17 +129,19 @@ async function decrementQuantity(item) {
 		{/each}
 	</div>
 
-	<div class="btns mobile-only">
-		<div class="btn product-counter europa-22 fullWidth">
-			<button onclick={() => {decrementQuantity(quantity)}}>–</button>
-			<span>{quantity}</span>
-			<button onclick={() => {incrementQuantity(quantity)}}>+</button>
+	<div class="mobile-only">
+		<div class="btns">
+			<div class="btn product-counter europa-22 fullWidth">
+				<button onclick={() => {decrementQuantity(quantity)}}>–</button>
+				<span>{quantity}</span>
+				<button onclick={() => {incrementQuantity(quantity)}}>+</button>
+			</div>
+			<AsyncButton
+			classes="btn border-white europa-18 fullWidth"
+			handler={addToCartHandler}
+			label="Add to cart"
+			/>
 		</div>
-		<AsyncButton
-		classes="btn border-white europa-18 fullWidth"
-		handler={addToCartHandler}
-		label="Add to cart"
-		/>
 	</div>
 	
 	<div class="info-container mobile-only europa-36 mobile-europa-24">

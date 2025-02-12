@@ -292,7 +292,7 @@ a.btn:hover,
 .uppercase {text-transform: uppercase;}
 .lowercase {text-transform: lowercase;}
 .mobile-only {
-  display: none !important;
+  display: none;
 }
 .desktop-only {
   display: unset;
