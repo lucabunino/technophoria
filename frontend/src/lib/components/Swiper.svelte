@@ -16,9 +16,6 @@ $effect(() => {
 			}
 			`,
 		],
-
-		// array with CSS urls
-		injectStylesUrls: ['path/to/one.css', 'path/to/two.css'],
 	};
 
 	Object.assign(swiperEl, params);
