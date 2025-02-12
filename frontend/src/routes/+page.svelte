@@ -445,8 +445,9 @@ span {
 }
 @media screen and (max-width: 900px) {
   .times-container {
-    position: fixed;
-    top: 0;
+    position: relative;
+    top: unset;
+    bottom: unset;
   }
   .times {
     display: contents;
@@ -462,8 +463,9 @@ span {
   }
   .times div:last-of-type {
     position: fixed;
-    bottom: calc(1.2*3.3rem);
-    padding-bottom: calc(var(--gutter)/1.5);
+    /* bottom: calc(1.2*3.3rem); */
+    bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: calc(1.2*3.3rem + var(--gutter)/1.5);
     top: unset;
   }
 }
@@ -505,7 +507,7 @@ span {
 @media screen and (max-width: 900px) {
   .marquee {
     position: fixed;
-    bottom: 0;
+    bottom: calc(env(safe-area-inset-bottom, 0px) - 1px);
     top: unset;
     padding: .3em 0;
     overflow: hidden;
@@ -722,7 +724,7 @@ h2 {
     position: relative;
   }
   .vertical.hero {
-    margin-top: 0;
+    margin-top: calc((-.777rem - var(--gutter)*1) - 1.2rem);
     height: 35vh;
     height: 35svh;
     min-height: unset;

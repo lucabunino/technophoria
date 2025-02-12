@@ -111,7 +111,7 @@ function toggleCredits() {
 </div>
 {/if}
 
-{#if domLoaded && $page.url.hostname !== 'www.technophoria.shop'}
+<!-- {#if domLoaded && $page.url.hostname !== 'www.technophoria.shop'} -->
 <header>
   <nav>
     <ul class="menu uppercase europa-24 mobile-europa-24">
@@ -143,7 +143,7 @@ function toggleCredits() {
     <li><p>A editorial project by Felicity Ingram</p><p class="uppercase">First Edition © 2025</p></li>
   </ul>
 </footer>
-{/if}
+<!-- {/if} -->
   
   
   
