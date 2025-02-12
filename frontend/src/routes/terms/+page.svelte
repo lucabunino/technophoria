@@ -180,7 +180,7 @@
   
 <style>
 .body {
-    margin: calc(var(--gutter)/2) var(--gutter) calc(var(--gutter)*4);
+    margin: calc(var(--gutter)/1.5) var(--gutter) calc(var(--gutter)*4);
     grid-column: 1 / span 7;
 }
 h2, h3 {
