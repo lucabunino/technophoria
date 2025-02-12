@@ -131,7 +131,7 @@ function marquee(node, speed) {
     </ul>
     <h2 class="uppercase europa-66">“Technophoria”<br>By Felicity Ingram<br><span class="lowercase">6th</span> March 2025</h2>
     <AsyncButton
-		classes="{domLoaded ? 'btn hero' : 'btn hero hidden'}"
+		classes="{domLoaded ? 'btn hero' : 'btn hero  hidden'}"
 		handler={addToCartHandler}
 		label="Preorder now"
 		/>
