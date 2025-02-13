@@ -464,7 +464,7 @@ span {
   .times div:last-of-type {
     position: fixed;
     /* bottom: calc(1.2*3.3rem); */
-    bottom: env(safe-area-inset-bottom, 0px);
+    bottom: -1px;
     padding-bottom: calc(1.2*3.3rem + var(--gutter)/1.5);
     top: unset;
   }
@@ -507,7 +507,7 @@ span {
 @media screen and (max-width: 900px) {
   .marquee {
     position: fixed;
-    bottom: calc(env(safe-area-inset-bottom, 0px) - 1px);
+    bottom: -1px;
     top: unset;
     padding: .3em 0;
     overflow: hidden;

@@ -19,9 +19,7 @@
 	let selectedOptions = $state({});
 	let errorMessage = $state();
 
-	let cartId = $state($cartIdStore);
-	console.log($cartIdStore);
-	
+	let cartId = $state($cartIdStore);	
 	let optionNames = options?.map((option) => option.name);
 
 	async function addToCartHandler() {
