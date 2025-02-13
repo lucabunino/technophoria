@@ -724,7 +724,7 @@ h2 {
     position: relative;
   }
   .vertical.hero {
-    margin-top: calc((-.777rem - var(--gutter)*1) - 1.2rem);
+    margin-top: calc((-.777rem - var(--gutter)*1) - 1.2rem - 1px);
     height: 35vh;
     height: 35svh;
     min-height: unset;
