@@ -86,21 +86,21 @@ async function decrementQuantity(item) {
 		{formatPrice(product.price.amount, product.price.currencyCode)}
 	</p>
 	<div class="btns">
-		<div class="btn product-counter europa-22 fullWidth desktop-only">
+		<div class="btn product-counter europa-22 fullWidth">
 			<button onclick={() => {decrementQuantity(quantity)}}>–</button>
 			<span>{quantity}</span>
 			<button onclick={() => {incrementQuantity(quantity)}}>+</button>
 		</div>
 		<AsyncButton
-		classes="btn border-white europa-18 fullWidth desktop-only"
+		classes="btn border-white europa-18 fullWidth"
 		handler={addToCartHandler}
 		label="Add to cart"
 		/>
-		<AsyncButton
+		<!-- <AsyncButton
 			classes="btn border-white europa-18 fullWidth active"
 			handler={buyNowHandler}
 			label="Preorder now"
-		/>
+		/> -->
 	</div>
 	
 	{#if product.descriptionHtml}
@@ -121,7 +121,7 @@ async function decrementQuantity(item) {
 		{/each}
 	</div>
 
-	<div class="mobile-only">
+	<!-- <div class="mobile-only">
 		<div class="btns">
 			<div class="btn product-counter europa-22 fullWidth">
 				<button onclick={() => {decrementQuantity(quantity)}}>–</button>
@@ -134,7 +134,7 @@ async function decrementQuantity(item) {
 			label="Add to cart"
 			/>
 		</div>
-	</div>
+	</div> -->
 	
 	<div class="info-container mobile-only europa-36 mobile-europa-24">
 		{#if product.descriptionHtml}

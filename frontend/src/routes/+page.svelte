@@ -462,8 +462,8 @@ span {
 /* Marquee */
 .marquee {
   position: sticky;
-  top: calc(100vh - 1.2*2.5rem);
-  top: calc(100dvh - 1.2*2.5rem);
+  top: calc(100vh - 1.2*2.5rem + 1px);
+  top: calc(100dvh - 1.2*2.5rem + 1px);
   will-change: transform;
   background-color: var(--black);
   overflow: hidden;

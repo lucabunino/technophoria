@@ -64,6 +64,7 @@
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 	height: 100vh;
+	height: 100dvh;
 	width: 33vw;
 	max-width: 400px;
 	position: fixed;
