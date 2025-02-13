@@ -111,8 +111,8 @@ function toggleCredits() {
 </div>
 {/if}
 
-{#if domLoaded && $page.url.hostname !== 'www.technophoria.shop'}
-<!-- {#if domLoaded} -->
+<!-- {#if domLoaded && $page.url.hostname !== 'www.technophoria.shop'} -->
+{#if domLoaded}
 <header>
   <nav>
     <ul class="menu uppercase europa-24 mobile-europa-24">
