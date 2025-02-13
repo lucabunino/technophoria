@@ -225,7 +225,6 @@ footer ul {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-top: solid 1px var(--white);
 }
 
 @media screen and (max-width: 900px) {

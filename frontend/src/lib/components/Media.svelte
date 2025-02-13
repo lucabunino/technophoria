@@ -118,8 +118,8 @@
   }
 
   .blurred {
-    -webkit-filter: blur(var(--blur)) contrast(5);
-            filter: blur(var(--blur)) contrast(5);
+    /* -webkit-filter: blur(var(--blur)) contrast(5);
+            filter: blur(var(--blur)) contrast(5); */
   }
   .originTop {
     -webkit-transform-origin: top;

@@ -200,7 +200,7 @@ function marquee(node, speed) {
   <div class="block auto quote-img bottom europa-75">
     <Media video="/video/footage-3.mp4" high="/video/footage-3-poster.webp"  alt="Technophoria_Marseille"/>
     <!-- <p><span>‘An ode to the power</span> <span>of music and the spaces</span> <span>it creates’</span></p> -->
-    <p>‘An ode to the power of music and the spaces it creates’</p>
+    <p>‘A reportage project by Felicity Ingram’</p>
   </div>
 
   <div class="block auto double">
@@ -293,7 +293,7 @@ function marquee(node, speed) {
   </div>
 
   <div class="block vertical">
-    <Media low="/img/vertical-3-low.webp" high="/img/vertical-3-2560w.webp" cover={true} alt="Technophoria_Seoul"/>
+    <Media low="/img/vertical-3-low.webp" high="/img/vertical-3-2560w.webp" originTop={true} cover={true} alt="Technophoria_Seoul"/>
   </div>
 
   <div class="block auto double">
@@ -453,7 +453,7 @@ span {
   .times div:last-of-type {
     position: fixed;
     /* bottom: calc(1.2*3.3rem); */
-    bottom: env(safe-area-inset-bottom, 0px);
+    bottom: 0;
     padding-bottom: calc(1.2*3.3rem + var(--gutter)/1.5);
     top: unset;
   }
@@ -496,7 +496,7 @@ span {
 @media screen and (max-width: 900px) {
   .marquee {
     position: fixed;
-    bottom: calc(env(safe-area-inset-bottom, 0px) - 1px);
+    bottom: 0;
     top: unset;
     padding: .3em 0;
     overflow: hidden;
@@ -713,7 +713,7 @@ h2 {
     position: relative;
   }
   .vertical.hero {
-    margin-top: calc((-.777rem - var(--gutter)*1) - 1.2rem);
+    margin-top: calc((-.777rem - var(--gutter)*1) - 1.2rem - 1px);
     height: 35vh;
     height: 35svh;
     min-height: unset;
