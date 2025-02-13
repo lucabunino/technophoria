@@ -87,12 +87,12 @@ function toggleCredits() {
   
 <svelte:head>
   <title>Technophoria</title>
-  <meta name="description" content="An ode to the power of music and the spaces it creates">
+  <meta name="description" content="A reportage project by Felicity Ingram">
   <link rel="canonical" href={$page.url}>
   <meta name="robots" content="index,follow">
   <meta name="googlebot" content="index,follow">
   <meta property="og:title" content="Technophoria">
-  <meta property="og:description" content="An ode to the power of music and the spaces it creates">
+  <meta property="og:description" content="A reportage project by Felicity Ingram">
   <meta property="og:url" content={$page.url}>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Technophoria">
