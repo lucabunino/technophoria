@@ -133,7 +133,7 @@ function marquee(node, speed) {
     <AsyncButton
 		classes="{domLoaded ? 'btn hero' : 'btn hero  hidden'}"
 		handler={addToCartHandler}
-		label="Preorder now"
+		label="Shop now"
 		/>
     <!-- <span class={domLoaded ? 'btn hero soon' : 'btn hero soon hidden'}>Preorder soon</span> -->
     <!-- <a class="btn hero" class:hidden={!domLoaded} href="/products/{data.product.handle}">Preorder now</a> -->
